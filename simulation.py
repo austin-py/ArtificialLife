@@ -13,8 +13,10 @@ from robot import ROBOT
 
 
 class SIMULATION:
-    def __init__(self,directOrGUI) -> None:
+    def __init__(self,directOrGUI,solutionID) -> None:
         self.physicsClient = None 
+        self.directOrGUI = directOrGUI
+        self.solutionID = solutionID
         if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
         else:
@@ -23,7 +25,7 @@ class SIMULATION:
         p.setGravity(0,0,-9.8)
 
         self.world = WORLD()
-        self.robot = ROBOT()
+        self.robot = ROBOT(solutionID)
 
     def Run(self):
          for i in range(c.num_steps):
@@ -31,7 +33,8 @@ class SIMULATION:
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
-            time.sleep(c.sleep_time)
+            if self.directOrGUI == "GUI":
+                time.sleep(c.sleep_time)
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()
