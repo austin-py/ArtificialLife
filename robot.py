@@ -10,6 +10,7 @@ import os
 
 class ROBOT:
     def __init__(self,solutionID) -> None:
+        self.solutionID = solutionID
         self.sensors = {}
         self.motors = {}
         self.robotId = p.loadURDF("body.urdf")
@@ -17,7 +18,7 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_to_Act()
-        os.system("del brain{}.nndf".format(solutionID))
+        os.system("rm brain{}.nndf".format(solutionID))
         
 
     def Prepare_To_Sense(self):
@@ -48,6 +49,7 @@ class ROBOT:
         stateOfLinkZero = p.getLinkState(self.robotId,0)
         positionOfLinkZero = stateOfLinkZero[0]
         xCoordinateOfLinkZero = positionOfLinkZero[0] # slight chance this is supposed to be 1
-        with open("fitness.txt", 'w') as f:
+        with open("tmp{}.txt".format(self.solutionID), 'w') as f:
             f.write(str(xCoordinateOfLinkZero))
             # print('Just wrote ', xCoordinateOfLinkZero)
+        os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))
