@@ -15,12 +15,15 @@ class SOLUTION():
     def __init__(self) -> None:
         self.weights = numpy.random.rand(3,2)
         self.weights = self.weights * 2 - 1
+        self.fitness = 0
         self.Create_World()
         self.Create_Body()
         self.Create_Brain()
 
-    def Evaluate(self):
-        os.system("python3 simulate.py")
+    def Evaluate(self, directorgui):
+        os.system("python3 simulate.py " + directorgui)
+        with open("fitness.txt",'r') as f:
+            self.fitness = float(f.read())
 
     def Create_World(self):
        pyrosim.Start_SDF("boxes.sdf")
@@ -52,3 +55,8 @@ class SOLUTION():
              pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + 3, weight = self.weights[currentRow][currentColumn] )
         
         pyrosim.End()
+
+    def Mutate(self):
+        row = random.randint(0,2)
+        column = random.randint(0,1)
+        self.weights[row][column] =  random.random() * 2 - 1

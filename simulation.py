@@ -13,8 +13,12 @@ from robot import ROBOT
 
 
 class SIMULATION:
-    def __init__(self) -> None:
-        self.physicsClient = p.connect(p.GUI)
+    def __init__(self,directOrGUI) -> None:
+        self.physicsClient = None 
+        if directOrGUI == "DIRECT":
+            self.physicsClient = p.connect(p.DIRECT)
+        else:
+            self.physicsClient = p.connect(p.GUI)
         p.setAdditionalSearchPath(pybullet_data.getDataPath())
         p.setGravity(0,0,-9.8)
 

@@ -16,3 +16,5 @@ frequency_back = 50
 phaseOffset_back = numpy.pi/8
 targetAngles_back = numpy.linspace(0 , 2*numpy.pi, num = 1000)
 
+
+numberOfGenerations = 10

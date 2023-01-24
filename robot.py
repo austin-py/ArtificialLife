@@ -39,7 +39,7 @@ class ROBOT:
 
     def Think(self):
         self.nn.Update()
-        self.nn.Print()
+        # self.nn.Print()
 
     def Get_Fitness(self):
         stateOfLinkZero = p.getLinkState(self.robotId,0)
@@ -47,5 +47,4 @@ class ROBOT:
         xCoordinateOfLinkZero = positionOfLinkZero[0] # slight chance this is supposed to be 1
         with open("fitness.txt", 'w') as f:
             f.write(str(xCoordinateOfLinkZero))
-        print(stateOfLinkZero)
-        exit()
+            # print('Just wrote ', xCoordinateOfLinkZero)
