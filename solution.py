@@ -23,7 +23,7 @@ class SOLUTION():
         self.Create_Brain()
 
     def Start_Simulation(self,directorgui):
-        os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " &") 
+        os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &") 
 
     def Wait_For_Simulation_To_End(self):
         while not os.path.exists("fitness{}.txt".format(self.myID)):
