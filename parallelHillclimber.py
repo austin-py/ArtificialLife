@@ -26,6 +26,7 @@ class PARALLEL_HILL_CLIMBER():
             # self.parents[j].Wait_For_Simulation_To_End()
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
+            self.Print()
     
     def Evolve_For_One_Generation(self):
         self.Spawn()
@@ -65,6 +66,7 @@ class PARALLEL_HILL_CLIMBER():
             if i[1].fitness < min_parent_fitness:
                 min_parent = i[1]
                 min_parent_fitness = min_parent.fitness
+        min_parent.Create_Brain()
         min_parent.Start_Simulation("GUI")
 
     def Evaluate(self,solutions):
@@ -72,3 +74,8 @@ class PARALLEL_HILL_CLIMBER():
             solutions[i].Start_Simulation("DIRECT")
         for j in solutions.keys():
             solutions[j].Wait_For_Simulation_To_End()
+
+
+    def Print(self):
+        for i in self.parents.keys():
+            print('\n',self.parents[i].fitness,self.children[i].fitness,'\n')

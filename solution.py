@@ -30,6 +30,7 @@ class SOLUTION():
             time.sleep(0.01)
         with open("fitness{}.txt".format(self.myID),'r') as f:
             self.fitness = float(f.read()) 
+            # print(self.fitness)
         os.system("rm fitness{}.txt".format(self.myID))
 
     def Evaluate(self, directorgui):
