@@ -35,12 +35,8 @@ class SOLUTION():
         os.system("rm fitness{}.txt".format(self.myID))
 
     def Evaluate(self, directorgui):
-        pass
-        # os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " &")
-        # while not os.path.exists("fitness{}.txt".format(self.myID)):
-            # time.sleep(0.01)
-        # with open("fitness{}.txt".format(self.myID),'r') as f:
-            # self.fitness = float(f.read())
+        self.Start_Simulation(directorgui)
+        self.Wait_For_Simulation_To_End()
 
     def Create_World(self):
        pyrosim.Start_SDF("boxes.sdf")

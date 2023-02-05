@@ -1,12 +1,22 @@
-import os 
-from hillclimber import HILL_CLIMBER
+
+
 from parallelHillclimber import PARALLEL_HILL_CLIMBER
 
+from solution import SOLUTION
 
-phc = PARALLEL_HILL_CLIMBER()
-phc.Evolve()
-phc.Show_Best()
+def evolve():
+    phc = PARALLEL_HILL_CLIMBER()
+    phc.Evolve()
+    phc.Show_Best()
 
+def random():
+    r = SOLUTION(0)
+    r.Evaluate("GUI")
+
+
+# phc = PARALLEL_HILL_CLIMBER()
+# phc.Evolve()
+# phc.Show_Best()
 # hc = HILL_CLIMBER()
 # hc.Evolve()
 # hc.Show_Best()

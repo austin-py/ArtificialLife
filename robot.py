@@ -48,9 +48,9 @@ class ROBOT:
         # self.nn.Print()
 
     def Get_Fitness(self):
-        stateOfLinkZero = p.getLinkState(self.robotId,0)
-        positionOfLinkZero = stateOfLinkZero[0]
-        xCoordinateOfLinkZero = positionOfLinkZero[0] # slight chance this is supposed to be 1
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        basePosition = basePositionAndOrientation[0]
+        xCoordinateOfLinkZero = basePosition[0]
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
             f.write(str(xCoordinateOfLinkZero))
             # print('Just wrote ', xCoordinateOfLinkZero)
