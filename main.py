@@ -1,7 +1,7 @@
 import search
 def main():
     search.evolve() 
-    # search.random()
+    search.random() 
 
 if __name__ == "__main__":
     main()
