@@ -40,117 +40,69 @@ class SOLUTION():
 
     def Create_World(self):
        pyrosim.Start_SDF("boxes.sdf")
-       pyrosim.Send_Cube(name="Box", pos=[5,5,5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box", pos=[-10,10,1.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box1", pos=[-10,10,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box2", pos=[-9,10,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box3", pos=[-9,9,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box4", pos=[-9,11,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box", pos=[-10,11,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box", pos=[-10,9,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box5", pos=[-11,11,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box6", pos=[-11,10,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box7", pos=[-11,9,.5] , size=[length ,height ,width ])
+
        pyrosim.End()
 
+# size = depth, width, height 
     def Create_Body(self):
         pyrosim.Start_URDF("body.urdf")
-        pyrosim.Send_Cube(name="Torso", pos=[0,0,1] , size=[length ,height ,width ])
+        pyrosim.Send_Cube(name="Torso", pos=[0,0,3.5] , size=[0.5 ,2 ,2 ])
 
-        pyrosim.Send_Joint( name = "Torso_FrontLeg" , parent= "Torso" , child = "FrontLeg" , 
-            type = "revolute", position = [0,0.5,1], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name="FrontLeg", pos=[0,0.5,0] , size=[0.2,1,0.2])
-
-        pyrosim.Send_Joint( name = "Torso_BackLeg" , parent= "Torso" , child = "BackLeg" , 
-            type = "revolute", position = [0,-.5,1], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name="BackLeg", pos=[0,-0.5,0] , size=[0.2,1,0.2])
-        
         pyrosim.Send_Joint( name = "Torso_LeftLeg" , parent= "Torso" , child = "LeftLeg" , 
-            type = "revolute", position = [0.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name ="LeftLeg", pos = [0.5,0,0],size=[1,0.2,0.2])
+            type = "revolute", position = [0,-1,2.5], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="LeftLeg", pos=[0,0,-.5] , size=[.5,.3,1])
+
+        pyrosim.Send_Joint( name = "LeftLeg_LeftLegLower" , parent= "LeftLeg" , child = "LeftLegLower" , 
+            type = "revolute", position = [0,0,-1], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="LeftLegLower", pos=[0,0,-.5] , size=[.5,.3,1])
+
+        pyrosim.Send_Joint( name = "LeftLegLower_LeftFoot" , parent= "LeftLegLower" , child = "LeftFoot" , 
+            type = "revolute", position = [0,0,-1], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="LeftFoot", pos=[0,0,-.25] , size=[.5,.6,.5])
+
+
+
 
         pyrosim.Send_Joint( name = "Torso_RightLeg" , parent= "Torso" , child = "RightLeg" , 
-            type = "revolute", position = [-0.5,0,1], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name ="RightLeg", pos = [-0.5,0,0],size=[1,0.2,0.2])
-        
+            type = "revolute", position = [0,1,2.5], jointAxis = "1 0 0")
+        pyrosim.Send_Cube(name="RightLeg", pos=[0,0,-.5] , size=[.5,.3,1])
 
-        pyrosim.Send_Joint( name = "FrontLeg_FrontLegBottom" , parent= "FrontLeg" , child = "FrontLegBottom" , 
-            type = "revolute", position = [0,1,0], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name ="FrontLegBottom", pos = [0,0,-.5],size=[0.2,0.2,1])
+        pyrosim.Send_Joint( name = "RightLeg_RightLegLower" , parent= "RightLeg" , child = "RightLegLower" , 
+            type = "revolute", position = [0,0,-1], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="RightLegLower", pos=[0,0,-.5] , size=[.5,.3,1])
 
-        pyrosim.Send_Joint( name = "BackLeg_BackLegBottom" , parent= "BackLeg" , child = "BackLegBottom" , 
-           type = "revolute", position = [0,-1,0], jointAxis = "1 0 0")
-        pyrosim.Send_Cube(name ="BackLegBottom", pos = [0,0,-.5],size=[0.2,0.2,1])
-        
-        pyrosim.Send_Joint( name = "LeftLeg_LeftLegBottom" , parent= "LeftLeg" , child = "LeftLegBottom" , 
-            type = "revolute", position = [1,0,0], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name ="LeftLegBottom", pos = [0,0,-.5],size=[0.2,0.2,1])
-
-        pyrosim.Send_Joint( name = "RightLeg_RightLegBottom" , parent= "RightLeg" , child = "RightLegBottom" , 
-           type = "revolute", position = [-1,0,0], jointAxis = "0 1 0")
-        pyrosim.Send_Cube(name ="RightLegBottom", pos = [0,0,-.5],size=[0.2,0.2,1])
+        pyrosim.Send_Joint( name = "RightLegLower_RightFoot" , parent= "RightLegLower" , child = "RightFoot" , 
+            type = "revolute", position = [0,0,-1], jointAxis = "0 1 0")
+        pyrosim.Send_Cube(name="RightFoot", pos=[0,0,-.25] , size=[.5,.6,.5])
 
 
-
-        pyrosim.Send_Joint(name = "Torso_BackLegStraight", parent = "Torso", child = "BackLegStraight" ,
-            type = "revolute", position=[0,-.50,0], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "BackLegStraight", pos = [0,0,0.125],size = [0.2,0.2,0.75])
-
-        pyrosim.Send_Joint(name = "Torso_FrontLegStraight", parent = "Torso", child = "FrontLegStraight" ,
-           type = "revolute", position=[0,.50,0], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "FrontLegStraight", pos = [0,0,0.125],size = [0.2,0.2,0.75])    
-
-        pyrosim.Send_Joint(name = "Torso_LeftLegStraight", parent = "Torso", child = "LeftLegStraight" ,
-            type = "revolute", position=[0.5,0,0], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "LeftLegStraight", pos = [0,0,0.125],size = [0.2,0.2,0.75])    
-
-        pyrosim.Send_Joint(name = "Torso_RightLegStraight", parent = "Torso", child = "RightLegStraight" ,
-            type = "revolute", position=[-0.5,0,0], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "RightLegStraight", pos = [0,0,0.125],size = [0.2,0.2,0.75])    
-
-
-        pyrosim.Send_Joint(name = "Torso_BackLegStraightTop", parent = "Torso", child = "BackLegStraightTop" ,
-            type = "revolute", position=[0,-.50,1], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "BackLegStraightTop", pos = [0,0,0.875],size = [0.2,0.2,0.75])
-
-        pyrosim.Send_Joint(name = "Torso_FrontLegStraightTop", parent = "Torso", child = "FrontLegStraightTop" ,
-           type = "revolute", position=[0,.50,1], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "FrontLegStraightTop", pos = [0,0,0.875],size = [0.2,0.2,0.75])    
-
-        pyrosim.Send_Joint(name = "Torso_LeftLegStraightTop", parent = "Torso", child = "LeftLegStraightTop" ,
-            type = "revolute", position=[0.5,0,1], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "LeftLegStraightTop", pos = [0,0,0.875],size = [0.2,0.2,0.75]) 
-
-        pyrosim.Send_Joint(name = "Torso_RightLegStraightTop", parent = "Torso", child = "RightLegStraightTop" ,
-            type = "revolute", position=[-0.5,0,1], jointAxis= "0 1 0")
-        pyrosim.Send_Cube(name = "RightLegStraightTop", pos = [0,0,0.875],size = [0.2,0.2,0.75])  
 
         pyrosim.End()
 
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain{}.nndf".format(self.myID))
         pyrosim.Send_Sensor_Neuron(name = 0 , linkName = "Torso")
-        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "BackLeg")
-        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "FrontLeg")
-        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftLeg")
-        pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "FrontLegBottom")
-        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "BackLegBottom")
-        pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "LeftLegBottom")
-        pyrosim.Send_Sensor_Neuron(name = 7 , linkName = "RightLegBottom")
-        pyrosim.Send_Sensor_Neuron(name = 8 , linkName = "BackLegStraight")
-        pyrosim.Send_Sensor_Neuron(name = 9 , linkName = "FrontLegStraight")
-        pyrosim.Send_Sensor_Neuron(name = 10 , linkName = "RightLegStraight")
-        pyrosim.Send_Sensor_Neuron(name = 11 , linkName = "LeftLegStraight")
-        pyrosim.Send_Sensor_Neuron(name = 12 , linkName = "BackLegStraightTop")
-        pyrosim.Send_Sensor_Neuron(name = 13 , linkName = "FrontLegStraightTop")
-        pyrosim.Send_Sensor_Neuron(name = 14 , linkName = "RightLegStraightTop")
-        pyrosim.Send_Sensor_Neuron(name = 15 , linkName = "LeftLegStraightTop")
+        pyrosim.Send_Sensor_Neuron(name = 1 , linkName = "LeftLeg")
+        pyrosim.Send_Sensor_Neuron(name = 2 , linkName = "LeftLegLower")
+        pyrosim.Send_Sensor_Neuron(name = 3 , linkName = "LeftFoot")
+        pyrosim.Send_Sensor_Neuron(name = 4 , linkName = "RightLeg")
+        pyrosim.Send_Sensor_Neuron(name = 5 , linkName = "RightLegLower")
+        pyrosim.Send_Sensor_Neuron(name = 6 , linkName = "RightFoot")
 
-        pyrosim.Send_Motor_Neuron( name = 16 , jointName = "Torso_BackLeg")
-        pyrosim.Send_Motor_Neuron( name = 17, jointName = "Torso_FrontLeg")
-        pyrosim.Send_Motor_Neuron( name = 18, jointName = "Torso_LeftLeg" )
-        pyrosim.Send_Motor_Neuron( name = 19, jointName = "FrontLeg_FrontLegBottom")
-        pyrosim.Send_Motor_Neuron( name = 20, jointName = "BackLeg_BackLegBottom")
-        pyrosim.Send_Motor_Neuron( name = 21, jointName = "LeftLeg_LeftLegBottom")
-        pyrosim.Send_Motor_Neuron( name = 22, jointName = "RightLeg_RightLegBottom")
-        pyrosim.Send_Motor_Neuron( name = 23, jointName = "Torso_BackLegStraight")
-        pyrosim.Send_Motor_Neuron( name = 24, jointName = "Torso_FrontLegStraight")
-        pyrosim.Send_Motor_Neuron( name = 25, jointName = "Torso_RightLegStraight")
-        pyrosim.Send_Motor_Neuron( name = 26, jointName = "Torso_LeftLegStraight")
-        pyrosim.Send_Motor_Neuron( name = 27, jointName = "Torso_BackLegStraightTop")
-        pyrosim.Send_Motor_Neuron( name = 28, jointName = "Torso_FrontLegStraightTop")
-        pyrosim.Send_Motor_Neuron( name = 29, jointName = "Torso_RightLegStraightTop")
-        pyrosim.Send_Motor_Neuron( name = 30, jointName = "Torso_LeftLegStraightTop")
+        # pyrosim.Send_Motor_Neuron( name = 7 , jointName = "Torso_LeftLeg")
+        pyrosim.Send_Motor_Neuron( name = 7 , jointName = "LeftLeg_LeftLegLower")
+        # pyrosim.Send_Motor_Neuron( name = 9 , jointName = "Torso_RightLeg")
+        pyrosim.Send_Motor_Neuron( name = 8 , jointName = "RightLeg_RightLegLower")
 
 
         for currentRow in range(c.numSensorNeurons): 

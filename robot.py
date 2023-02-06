@@ -9,6 +9,7 @@ from motor import MOTOR
 import constants as c 
 
 import os 
+import math
 
 class ROBOT:
     def __init__(self,solutionID) -> None:
@@ -53,8 +54,12 @@ class ROBOT:
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
         yCoord = basePosition[2]
+        zCoord = basePosition[1]
+
+        dist_squared = ((xCoordinateOfLinkZero - (-10))**2 + (zCoord - (10))**2 + (yCoord - (2))**2)
+        dist = math.sqrt(dist_squared)
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
-            f.write(str(yCoord))
+            f.write(str(dist))
             # print('Just wrote ', xCoordinateOfLinkZero)
         print("Moving to rename file")
         os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))
