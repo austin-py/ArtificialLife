@@ -56,8 +56,11 @@ class PARALLEL_HILL_CLIMBER():
             if i[1].fitness < min_parent_fitness:
                 min_parent = i[1]
                 min_parent_fitness = min_parent.fitness
+
+        print("Our best fitness value was: ", min_parent_fitness)
         min_parent.Create_Brain()
         min_parent.Start_Simulation("GUI")
+        min_parent.Create_Brain()
 
     def Evaluate(self,solutions):
         for i in solutions.keys():

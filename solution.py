@@ -24,7 +24,7 @@ class SOLUTION():
         self.Create_Body()
         self.Create_Brain()
 
-    def Start_Simulation(self,directorgui):
+    def Start_Simulation(self,directorgui, dont_delete = False):
         os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &") 
 
     def Wait_For_Simulation_To_End(self):
@@ -44,11 +44,11 @@ class SOLUTION():
        pyrosim.Send_Cube(name="Box2", pos=[-9,10,.5] , size=[length ,height ,width ])
        pyrosim.Send_Cube(name="Box3", pos=[-9,9,.5] , size=[length ,height ,width ])
        pyrosim.Send_Cube(name="Box4", pos=[-9,11,.5] , size=[length ,height ,width ])
-       pyrosim.Send_Cube(name="Box", pos=[-10,11,.5] , size=[length ,height ,width ])
-       pyrosim.Send_Cube(name="Box", pos=[-10,9,.5] , size=[length ,height ,width ])
-       pyrosim.Send_Cube(name="Box5", pos=[-11,11,.5] , size=[length ,height ,width ])
-       pyrosim.Send_Cube(name="Box6", pos=[-11,10,.5] , size=[length ,height ,width ])
-       pyrosim.Send_Cube(name="Box7", pos=[-11,9,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box5", pos=[-10,11,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box6", pos=[-10,9,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box7", pos=[-11,11,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box8", pos=[-11,10,.5] , size=[length ,height ,width ])
+       pyrosim.Send_Cube(name="Box9", pos=[-11,9,.5] , size=[length ,height ,width ])
 
        pyrosim.End()
 
