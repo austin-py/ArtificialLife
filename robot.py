@@ -48,10 +48,13 @@ class ROBOT:
         # self.nn.Print()
 
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robot)
+        print("Trying to save doc")
+        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
+        yCoord = basePosition[2]
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
-            f.write(str(xCoordinateOfLinkZero))
+            f.write(str(yCoord))
             # print('Just wrote ', xCoordinateOfLinkZero)
+        print("Moving to rename file")
         os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))
