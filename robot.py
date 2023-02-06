@@ -1,5 +1,6 @@
+import os 
+import math
 import pybullet as p
-import pybullet_data
 import pyrosim.pyrosim as pyrosim
 from pyrosim.neuralNetwork import NEURAL_NETWORK
 
@@ -8,8 +9,8 @@ from motor import MOTOR
 
 import constants as c 
 
-import os 
-import math
+
+
 
 class ROBOT:
     def __init__(self,solutionID) -> None:
@@ -46,10 +47,8 @@ class ROBOT:
 
     def Think(self):
         self.nn.Update()
-        # self.nn.Print()
 
     def Get_Fitness(self):
-        print("Trying to save doc")
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
         basePosition = basePositionAndOrientation[0]
         xCoordinateOfLinkZero = basePosition[0]
@@ -60,6 +59,4 @@ class ROBOT:
         dist = math.sqrt(dist_squared)
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
             f.write(str(dist))
-            # print('Just wrote ', xCoordinateOfLinkZero)
-        print("Moving to rename file")
         os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))

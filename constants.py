@@ -3,7 +3,7 @@ import numpy
 
 num_steps = 1000 
 max_force = 500 
-sleep_time = 0.01
+sleep_time = 0
 
 amplitude_front = numpy.pi/4 
 frequency_front = 50
@@ -17,7 +17,7 @@ phaseOffset_back = numpy.pi/8
 targetAngles_back = numpy.linspace(0 , 2*numpy.pi, num = 1000)
 
 
-numberOfGenerations = 10
+numberOfGenerations = 100
 populationSize = 10
 
 

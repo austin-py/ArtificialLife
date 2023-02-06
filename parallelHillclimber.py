@@ -19,11 +19,6 @@ class PARALLEL_HILL_CLIMBER():
 
     def Evolve(self):
         self.Evaluate(self.parents)
-        # for i in self.parents.keys():
-            # self.parents[i].Evaluate("GUI")
-            # self.parents[i].Start_Simulation("DIRECT")
-        # for j in self.parents.keys():
-            # self.parents[j].Wait_For_Simulation_To_End()
         for currentGeneration in range(numberOfGenerations):
             self.Evolve_For_One_Generation()
             self.Print()
@@ -34,23 +29,18 @@ class PARALLEL_HILL_CLIMBER():
         for child in self.children.items():
             child[1].Create_Brain()
         self.Evaluate(self.children)
-        # print('\n',self.parent.fitness, self.child.fitness)
-        # self.Select()
+        self.Select()
 
     def Spawn(self):
         for i in self.parents.keys():
             self.children[i] = copy.deepcopy(self.parents[i])
             self.children[i].Set_ID(self.nextAvailableID)
             self.nextAvailableID +=1
-        # self.child = copy.deepcopy(self.parent)
-        # self.child.Set_ID(self.nextAvailableID)
-        # self.nextAvailableID +=1
 
 
 
     def Mutate(self):
         for child in self.children.items():
-            # print(child)
             child[1].Mutate()
 
 

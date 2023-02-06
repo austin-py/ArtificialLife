@@ -1,8 +1,9 @@
 import numpy 
-import pyrosim.pyrosim as pyrosim
 import random 
 import os 
 import time
+
+import pyrosim.pyrosim as pyrosim
 
 import constants as c 
 length = 1
@@ -31,12 +32,10 @@ class SOLUTION():
             time.sleep(0.01)
         with open("fitness{}.txt".format(self.myID),'r') as f:
             self.fitness = float(f.read()) 
-            # print(self.fitness)
         os.system("rm fitness{}.txt".format(self.myID))
 
     def Evaluate(self, directorgui):
         self.Start_Simulation(directorgui)
-        # self.Wait_For_Simulation_To_End()
 
     def Create_World(self):
        pyrosim.Start_SDF("boxes.sdf")
