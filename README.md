@@ -9,3 +9,10 @@ For the video I used 100 generations of 10 creatures. Running the main.py file w
 I also messed around with potentially using two joints for the legs, one that rotates outwards while the other rotates forward and backward (similar to a human body where our hips rotate out, and knees hinge). The robot struggled however with this configuration and was less succesfull than when it had less motors. 
 
 Additionally, I increased the maximum joint rotation to .7 which I found helped it move further without being too floppy. In the future directly evolvign the maximum rotation angle will likely help further refine the robot. 
+
+===================
+TO RUN: 
+===================
+Simply run "python3 main.py" and it will simulate an evolved, and then a random creature. 
+
+
