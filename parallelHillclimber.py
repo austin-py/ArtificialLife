@@ -60,6 +60,7 @@ class PARALLEL_HILL_CLIMBER():
         print("Our best fitness value was: ", min_parent_fitness)
         min_parent.Create_Brain()
         min_parent.Start_Simulation("GUI")
+        min_parent.Wait_For_Simulation_To_End()
         min_parent.Create_Brain()
 
     def Evaluate(self,solutions):
