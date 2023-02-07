@@ -1,5 +1,4 @@
 
-=======================
 ~ 396 Artificial Life ~ 
 =======================
 My creature is a torso with two legs that I have evolved to walk as close to a little pyramid of blocks as possible. It uses a 3D distance formula (pythagorian theorem more or less) to calculate how far the creature is from the top of the center block.  The select functions chooses the robot with the minimal distance to the center of the pyramid. 
@@ -10,7 +9,7 @@ I also messed around with potentially using two joints for the legs, one that ro
 
 Additionally, I increased the maximum joint rotation to .7 which I found helped it move further without being too floppy. In the future directly evolvign the maximum rotation angle will likely help further refine the robot. 
 
-===================
+
 TO RUN: 
 ===================
 Simply run "python3 main.py" and it will simulate an evolved, and then a random creature. 
