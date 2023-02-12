@@ -1,7 +1,7 @@
 
 ~ 396 Artificial Life ~ 
 =======================
-These snakes are randomly generated with the following parameters: 
+These creatures are randomly generated with the following parameters: 
   - Number of Boxes: 2 - 11 
   - Probability of Sensor: 50% 
   - Probability of Motor: 100% 
@@ -9,11 +9,11 @@ These snakes are randomly generated with the following parameters:
   - Depth: 0.01 - 1.01 
   - Width: 0.01 - 2.01 
   
-  They were made to only move backwards away from the viewer on a 1D plane for now. 
+  They can branch to the left, towards the viewer, or upwards. 
 
 
 TO RUN: 
 ===================
-Simply run "python3 main.py" and it will simulate 10 snakes for 100 frames each. For some reason it changes the view on snakes 2-10, but these can be slowed down and played with using the constants.py  
+Simply run "python3 main.py" and it will simulate 10 creatures for 100 frames each. For some reason it changes the view on creatures 2-10, but these can be slowed down and played with using the constants.py  
 
 
