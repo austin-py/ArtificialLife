@@ -72,6 +72,9 @@ class RANDOM_SOLUTION():
         width = random.random() * 2 + 0.01 
         height = random.random() + 0.01 
         prev_width = width
+        prev_depth = depth 
+        prev_height = height 
+        prev_direction = 1
         if random_sensor % 2 == 0:
             self.links.append("Torso")
             pyrosim.Send_Cube(name="Torso", pos=[0,0,0.5] , size=[depth ,width ,height ], color="green",rgba = ["0","1.0","0","1,0"])
@@ -92,33 +95,93 @@ class RANDOM_SOLUTION():
             depth = random.random() + 0.01 
             width = random.random() * 2 + 0.01 
             height = random.random() + 0.01 
-            
+
+            direction = random.randint(1,3)
+
             block_name = "Block" + str(joint_num)
             joint_name = parent + "_" + block_name
-            if i == 0:
-                pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
-                    type = "revolute", position = [0,prev_width/2,0.5], jointAxis= '1 0 0')
-                if random_sensor:
-                    pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+
+            if direction == 1:
+                if i == 0:
+                    pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
+                        type = "revolute", position = [0,prev_width/2,0.5], jointAxis= '1 0 0')
+                    if random_sensor:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    else:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height])
                 else:
-                    pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height])
-            else:
-                pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                    type = "revolute", position = [0,prev_width,0], jointAxis= '1 0 0')
-                if random_sensor:
-                    pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    if prev_direction == 2:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                            type = "revolute", position = [prev_depth/2,prev_width/2,0], jointAxis= '1 0 0')
+                    elif prev_direction == 3:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                        type = "revolute", position = [0,prev_width/2,prev_height/2], jointAxis= '1 0 0')
+                    else:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                        type = "revolute", position = [0,prev_width/2,0], jointAxis= '1 0 0')   
+                    if random_sensor:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    else:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height])
+            elif direction == 2:
+                if i == 0:
+                    pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
+                        type = "revolute", position = [prev_depth/2,0,0.5], jointAxis= '1 0 0')
+                    if random_sensor:
+                        pyrosim.Send_Cube(name = block_name, pos= [depth/2,0,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    else:
+                        pyrosim.Send_Cube(name = block_name, pos= [depth/2,0,0],size = [depth,width,height])
                 else:
-                    pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height])
+                    if prev_direction == 1:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                            type = "revolute", position = [prev_depth/2,prev_width/2,0], jointAxis= '1 0 0')
+                    elif prev_direction == 3:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                            type = "revolute", position = [prev_depth/2,0,prev_height/2], jointAxis= '1 0 0')
+                    else:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                            type = "revolute", position = [prev_depth,0,0], jointAxis= '1 0 0')                       
+                    if random_sensor:
+                        pyrosim.Send_Cube(name = block_name, pos= [depth/2,0,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    else:
+                        pyrosim.Send_Cube(name = block_name, pos= [depth/2,0,0],size = [depth,width,height])
+            elif direction == 3:
+                if i == 0:
+                    pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
+                        type = "revolute", position = [0,0,0.5 + prev_height / 2], jointAxis= '1 0 0')
+                    if random_sensor:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,0,height/2],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    else:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,0,height/2],size = [depth,width,height])
+                else:
+                    if prev_direction == 1:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                            type = "revolute", position = [0,prev_width/2,prev_height/2], jointAxis= '1 0 0')
+                    elif prev_direction == 2:
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                         type = "revolute", position = (prev_depth/2,0,prev_height/2), jointAxis= '1 0 0')
+                    else: 
+                        pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
+                        type = "revolute", position = (0,0,prev_height), jointAxis= '1 0 0')
+                    if random_sensor:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,0,height/2],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
+                    else:
+                        pyrosim.Send_Cube(name = block_name, pos= [0,0,height/2],size = [depth,width,height])                
+            
+        
 
             parent = block_name
             prev_width = width
+            prev_depth = depth
+            prev_height = height
+            prev_direction = direction
             joint_num +=1
             if random_sensor:
                 self.links.append(block_name)
                 self.numSensorsNeurons +=1
             self.joints.append(joint_name)
-        # print(self.joints)
-        # print(self.links)
+        print(self.joints)
+        print(self.links)
 
         pyrosim.End()
 
