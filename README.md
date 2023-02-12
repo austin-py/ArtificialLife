@@ -1,17 +1,19 @@
 
 ~ 396 Artificial Life ~ 
 =======================
-My creature is a torso with two legs that I have evolved to walk as close to a little pyramid of blocks as possible. It uses a 3D distance formula (pythagorian theorem more or less) to calculate how far the creature is from the top of the center block.  The select functions chooses the robot with the minimal distance to the center of the pyramid. 
-
-For the video I used 100 generations of 10 creatures. Running the main.py file will re-create this first by simulating a random creature, and then by evolving (while printing the fitness of children and parents) and then simulate the final product. This may take some time given the number of generations. Feel free to reduce the number of generations within constants.py to reduce the running time. 
-
-I also messed around with potentially using two joints for the legs, one that rotates outwards while the other rotates forward and backward (similar to a human body where our hips rotate out, and knees hinge). The robot struggled however with this configuration and was less succesfull than when it had less motors. 
-
-Additionally, I increased the maximum joint rotation to .7 which I found helped it move further without being too floppy. In the future directly evolvign the maximum rotation angle will likely help further refine the robot. 
+These snakes are randomly generated with the following parameters: 
+  - Number of Boxes: 2 - 11 
+  - Probability of Sensor: 50% 
+  - Probability of Motor: 100% 
+  - Height: 0.01 - 1.01 
+  - Depth: 0.01 - 1.01 
+  - Width: 0.01 - 2.01 
+  
+  They were made to only move backwards away from the viewer on a 1D plane for now. 
 
 
 TO RUN: 
 ===================
-Simply run "python3 main.py" and it will simulate an evolved, and then a random creature. 
+Simply run "python3 main.py" and it will simulate 10 snakes for 100 frames each. For some reason it changes the view on snakes 2-10, but these can be slowed down and played with using the constants.py  
 
 
