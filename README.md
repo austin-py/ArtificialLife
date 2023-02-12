@@ -17,3 +17,7 @@ TO RUN:
 Simply run "python3 main.py" and it will simulate 10 creatures for 100 frames each. For some reason it changes the view on creatures 2-10, but these can be slowed down and played with using the constants.py  
 
 
+Citations:
+===================
+This simulation is built on top of r/ludobots and the pyrosim library. Inspiration came from Karl Sim's work. 
+
