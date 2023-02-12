@@ -26,7 +26,9 @@ class SIMULATION:
         p.setGravity(0,0,-9.8)
 
         self.world = WORLD()
+        print("World set up")
         self.robot = ROBOT(solutionID)
+        print("Simulation set up succesfully")
 
     def Run(self):
          for i in range(c.num_steps):

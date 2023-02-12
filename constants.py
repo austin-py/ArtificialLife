@@ -17,11 +17,11 @@ phaseOffset_back = numpy.pi/8
 targetAngles_back = numpy.linspace(0 , 2*numpy.pi, num = 1000)
 
 
-numberOfGenerations = 50
+numberOfGenerations = 10
 populationSize = 10
 
 
-numSensorNeurons = 7
-numMotorNeurons = 2
+numSensorNeurons = 0 #7
+numMotorNeurons = 0 #2
 
 motorJointRange = 0.7 # Can also maybe adjust this 
