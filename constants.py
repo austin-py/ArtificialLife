@@ -1,7 +1,7 @@
 import numpy 
 
 
-num_steps = 1000 
+num_steps = 100#1000 
 max_force = 500 
 sleep_time = 0
 
