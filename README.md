@@ -21,6 +21,10 @@ These creatures are randomly generated with the following parameters:
   As noted above, all joints have motors. All sensors are also connected to all motors right now, with the brain being created after the physical body is created. I did mess around with random motor assignment, and a small amount with mapping the body so that motors would only be connected to sensors near them, but I found that it increased the complexity and often created worse results instead of better. 
 
 
+![Example Creature Generation](https://github.com/austin-py/ArtificialLife/blob/0de940c026fa403e7679c0dfe1757fd9218d8eff/creature_gen_diagram.jpg)
+
+
+
 TO RUN: 
 ===================
 Simply run "python3 main.py" and it will simulate 10 creatures for 100 frames each. For some reason it changes the view on creatures 2-10, but these can be slowed down and played with using the constants.py  
@@ -28,16 +32,11 @@ Simply run "python3 main.py" and it will simulate 10 creatures for 100 frames ea
 
 Documentation:
 ==============
-To view a 10 second snipit of the work: 
-To view a longer version of rhe same video: 
+To view a 10 second snipit of the work: https://youtu.be/yJPFGLsksvE
+To view a longer version of the same video:  https://youtu.be/LqtAj_jUAC0
 
 
 
 Citations:
 ===========
-Note: This work builds extensively off of the work of Karl Sims, r/ludobots, and the pyrosim library. Without this prior work none of this would have been possible, esspecially without the guidance of the pyrosim documentation and the helpful people over at r/ludobots who teach a great lesson on the basics. 
-
-Citations:
-===================
-This simulation is built on top of r/ludobots and the pyrosim library. Inspiration came from Karl Sim's work. 
-
+Note: This work builds extensively off of the work of Karl Sims, r/ludobots, and the pyrosim library. Without this prior work none of this would have been possible, esspecially without the guidance of the pyrosim documentation and the helpful people over at r/ludobots who teach a great lesson on the basics.
