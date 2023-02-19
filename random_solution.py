@@ -101,10 +101,16 @@ class RANDOM_SOLUTION():
             block_name = "Block" + str(joint_num)
             joint_name = parent + "_" + block_name
 
+            type = 'revolute'
+            floating = random.randint(0,10) % 10 == 0
+            if floating: 
+                type = 'floating'
+
+
             if direction == 1:
                 if i == 0:
                     pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
-                        type = "revolute", position = [0,prev_width/2,0.5], jointAxis= '1 0 0')
+                        type = type, position = [0,prev_width/2,0.5], jointAxis= '1 0 0')
                     if random_sensor:
                         pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
                     else:
@@ -112,13 +118,13 @@ class RANDOM_SOLUTION():
                 else:
                     if prev_direction == 2:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                            type = "revolute", position = [prev_depth/2,prev_width/2,0], jointAxis= '1 0 0')
+                            type = type, position = [prev_depth/2,prev_width/2,0], jointAxis= '1 0 0')
                     elif prev_direction == 3:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                        type = "revolute", position = [0,prev_width/2,prev_height/2], jointAxis= '1 0 0')
+                        type = type, position = [0,prev_width/2,prev_height/2], jointAxis= '1 0 0')
                     else:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                        type = "revolute", position = [0,prev_width/2,0], jointAxis= '1 0 0')   
+                        type = type, position = [0,prev_width/2,0], jointAxis= '1 0 0')   
                     if random_sensor:
                         pyrosim.Send_Cube(name = block_name, pos= [0,width/2,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
                     else:
@@ -126,7 +132,7 @@ class RANDOM_SOLUTION():
             elif direction == 2:
                 if i == 0:
                     pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
-                        type = "revolute", position = [prev_depth/2,0,0.5], jointAxis= '1 0 0')
+                        type = type, position = [prev_depth/2,0,0.5], jointAxis= '1 0 0')
                     if random_sensor:
                         pyrosim.Send_Cube(name = block_name, pos= [depth/2,0,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
                     else:
@@ -134,13 +140,13 @@ class RANDOM_SOLUTION():
                 else:
                     if prev_direction == 1:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                            type = "revolute", position = [prev_depth/2,prev_width/2,0], jointAxis= '1 0 0')
+                            type = type, position = [prev_depth/2,prev_width/2,0], jointAxis= '1 0 0')
                     elif prev_direction == 3:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                            type = "revolute", position = [prev_depth/2,0,prev_height/2], jointAxis= '1 0 0')
+                            type = type, position = [prev_depth/2,0,prev_height/2], jointAxis= '1 0 0')
                     else:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                            type = "revolute", position = [prev_depth,0,0], jointAxis= '1 0 0')                       
+                            type = type, position = [prev_depth,0,0], jointAxis= '1 0 0')                       
                     if random_sensor:
                         pyrosim.Send_Cube(name = block_name, pos= [depth/2,0,0],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
                     else:
@@ -148,7 +154,7 @@ class RANDOM_SOLUTION():
             elif direction == 3:
                 if i == 0:
                     pyrosim.Send_Joint(name = joint_name   , parent= parent , child = block_name , 
-                        type = "revolute", position = [0,0,0.5 + prev_height / 2], jointAxis= '1 0 0')
+                        type = type, position = [0,0,0.5 + prev_height / 2], jointAxis= '1 0 0')
                     if random_sensor:
                         pyrosim.Send_Cube(name = block_name, pos= [0,0,height/2],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
                     else:
@@ -156,13 +162,13 @@ class RANDOM_SOLUTION():
                 else:
                     if prev_direction == 1:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                            type = "revolute", position = [0,prev_width/2,prev_height/2], jointAxis= '1 0 0')
+                            type = type, position = [0,prev_width/2,prev_height/2], jointAxis= '1 0 0')
                     elif prev_direction == 2:
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                         type = "revolute", position = (prev_depth/2,0,prev_height/2), jointAxis= '1 0 0')
+                         type = type, position = (prev_depth/2,0,prev_height/2), jointAxis= '1 0 0')
                     else: 
                         pyrosim.Send_Joint(name = joint_name , parent= parent , child = block_name , 
-                        type = "revolute", position = (0,0,prev_height), jointAxis= '1 0 0')
+                        type = type, position = (0,0,prev_height), jointAxis= '1 0 0')
                     if random_sensor:
                         pyrosim.Send_Cube(name = block_name, pos= [0,0,height/2],size = [depth,width,height],color="green",rgba = ["0","1.0","0","1,0"])
                     else:

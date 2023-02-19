@@ -1,8 +1,6 @@
 import search
 def main():
-    # search.evolve() 
-    # search.random() 
-    for i in range(10):
+    for i in range(15):
         search.random_evolution()
 
 if __name__ == "__main__":

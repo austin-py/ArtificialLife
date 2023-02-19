@@ -1,9 +1,9 @@
 import numpy 
 
 
-num_steps = 100
+num_steps = 3000
 max_force = 500 
-sleep_time = 0
+sleep_time = 0.00
 
 amplitude_front = numpy.pi/4 
 frequency_front = 50
