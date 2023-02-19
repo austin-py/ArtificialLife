@@ -37,3 +37,7 @@ Citations:
 ===========
 Note: This work builds extensively off of the work of Karl Sims, r/ludobots, and the pyrosim library. Without this prior work none of this would have been possible, esspecially without the guidance of the pyrosim documentation and the helpful people over at r/ludobots who teach a great lesson on the basics. 
 
+Citations:
+===================
+This simulation is built on top of r/ludobots and the pyrosim library. Inspiration came from Karl Sim's work. 
+
