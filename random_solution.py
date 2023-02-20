@@ -16,8 +16,9 @@ y = 0
 z = 0.5
 
 class RANDOM_SOLUTION():
-    def __init__(self, nextAvailableID) -> None:
+    def __init__(self, nextAvailableID, seed) -> None:
         self.myID = nextAvailableID
+        self.randomSeed = seed
         self.fitness = 0
         self.Create_World()
         self.idNum = 0 
@@ -29,13 +30,13 @@ class RANDOM_SOLUTION():
         self.weights = numpy.random.rand(self.numSensorsNeurons,self.numMotorNeurons)
         self.weights = self.weights * 2 - 1
         self.Create_Brain()
+        
        
        
 
-    def Start_Simulation(self,directorgui, dont_delete = False):
+    def Start_Simulation(self,directorgui):
         print("Running simulate")
         # os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &")
-        print(self.myID)
         simulate(directorgui,str(self.myID))
         print("Command executed") 
 
@@ -66,7 +67,8 @@ class RANDOM_SOLUTION():
 
 # size = depth, width, height 
     def Create_Body(self):
-        pyrosim.Start_URDF("body.urdf")
+        pyrosim.Start_URDF("body{}.urdf".format(self.myID))
+        random.seed(self.randomSeed)
         random_sensor = random.randint(0,10)
         depth = random.random() + 0.01
         width = random.random() * 2 + 0.01 
@@ -186,8 +188,8 @@ class RANDOM_SOLUTION():
                 self.links.append(block_name)
                 self.numSensorsNeurons +=1
             self.joints.append(joint_name)
-        print(self.joints)
-        print(self.links)
+        # print(self.joints)
+        # print(self.links)
 
         pyrosim.End()
 
@@ -211,9 +213,16 @@ class RANDOM_SOLUTION():
         pyrosim.End()
 
     def Mutate(self):
-        row = random.randint(0,2)
-        column = random.randint(0,1)
-        self.weights[row][column] =  random.random() * 2 - 1
+        try:
+            row = random.randint(0,self.numSensorsNeurons - 1)
+            column = random.randint(0,self.numMotorNeurons - 1)
+            print("Sensors: ", self.numSensorsNeurons, " Motors: ", self.numMotorNeurons)
+            print("Row: ", row, "Column: ", column )
+            print(self.weights)
+            self.weights[row][column] =  random.random() * 2 - 1
+        except ValueError:
+            print("FAILED")
+        
 
     
     def Set_ID(self, ID):

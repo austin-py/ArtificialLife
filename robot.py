@@ -17,7 +17,7 @@ class ROBOT:
         self.solutionID = solutionID
         self.sensors = {}
         self.motors = {}
-        self.robotId = p.loadURDF("body.urdf")
+        self.robotId = p.loadURDF("body{}.urdf".format(solutionID))
         self.nn = NEURAL_NETWORK("brain{}.nndf".format(solutionID))
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
@@ -58,5 +58,5 @@ class ROBOT:
         dist_squared = ((xCoordinateOfLinkZero - (-10))**2 + (zCoord - (10))**2 + (yCoord - (2))**2)
         dist = math.sqrt(dist_squared)
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
-            f.write(str(dist))
+            f.write(str(xCoordinateOfLinkZero))
         os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))

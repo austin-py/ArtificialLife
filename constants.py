@@ -18,7 +18,7 @@ targetAngles_back = numpy.linspace(0 , 2*numpy.pi, num = 1000)
 
 
 numberOfGenerations = 10
-populationSize = 10
+populationSize = 1
 
 
 numSensorNeurons = 0 #7
