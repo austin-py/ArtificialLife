@@ -13,16 +13,18 @@ import constants as c
 
 
 class ROBOT:
-    def __init__(self,solutionID,bodyID = 0) -> None:
+    def __init__(self,solutionID) -> None:
         self.solutionID = solutionID
         self.sensors = {}
         self.motors = {}
-        self.robotId = p.loadURDF("body{}.urdf".format(bodyID))
+        self.robotId = p.loadURDF("body{}.urdf".format(solutionID % c.populationSize))
         self.nn = NEURAL_NETWORK("brain{}.nndf".format(solutionID))
+        print('loading robotID',solutionID % c.populationSize , ' with BrainID ', solutionID)
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_to_Act()
         os.system("rm brain{}.nndf".format(solutionID))
+        # os.system("rm body{}.urdf".format(solutionID))
         
 
     def Prepare_To_Sense(self):
@@ -55,7 +57,7 @@ class ROBOT:
         yCoord = basePosition[2]
         zCoord = basePosition[1]
 
-        dist_squared = ((xCoordinateOfLinkZero - (0))**2 + (zCoord - (0))**2 + (yCoord - (0))**2)
+        dist_squared = ((xCoordinateOfLinkZero - (0))**2 + (zCoord - (0))**2) # + (yCoord - (0))**2)
         dist = math.sqrt(dist_squared)
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
             f.write(str(dist))

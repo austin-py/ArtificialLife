@@ -16,10 +16,10 @@ y = 0
 z = 0.5
 
 class RANDOM_SOLUTION():
-    def __init__(self, nextAvailableID, seed) -> None:
+    def __init__(self, nextAvailableID) -> None:
         self.myID = nextAvailableID
-        self.randomSeed = seed
-        random.seed(self.randomSeed)
+        # self.randomSeed = seed
+        # random.seed(self.randomSeed)
         self.fitness = 0
         self.Create_World()
         self.idNum = 0 
@@ -35,11 +35,11 @@ class RANDOM_SOLUTION():
        
        
 
-    def Start_Simulation(self,directorgui,bodyID = 0):
+    def Start_Simulation(self,directorgui):
         # print('Weights for this round are:', self.weights)
         print("Running simulate")
         # os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &")
-        simulate(directorgui,str(self.myID),bodyID = str(bodyID))
+        simulate(directorgui,str(self.myID))
         print("Command executed") 
 
     def Wait_For_Simulation_To_End(self):
@@ -196,6 +196,7 @@ class RANDOM_SOLUTION():
 
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain{}.nndf".format(self.myID))
+        self.idNum = 0 
         for link in self.links: 
             pyrosim.Send_Sensor_Neuron(name = self.idNum , linkName = link)
             self.idNum +=1 
@@ -221,11 +222,14 @@ class RANDOM_SOLUTION():
             # print("Row: ", row, "Column: ", column )
             # print(self.weights)
             # print(self.weights[row][column])
-            self.weights[row][column] =  random.random() * 2 - 1
+            val = random.random() * 2 - 1
+            print(val)
+            self.weights[row][column] =  val #random.random() * 2 - 1
             # print(self.weights[row][column])
-        except ValueError:
-            print("FAILED")
-            exit()
+        except ValueError as e :
+            pass
+            # print("FAILED", e)
+            # exit()
         
 
     

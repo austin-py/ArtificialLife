@@ -1,6 +1,7 @@
 import copy 
 import os 
 import math 
+import random 
 
 from random_solution import RANDOM_SOLUTION
 from constants import numberOfGenerations, populationSize
@@ -13,9 +14,9 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         self.parents = {}
         self.children = {}
         self.nextAvailableID = 0
-        self.randomseed = seed
+        random.seed(seed)
         for i in range(populationSize):
-            self.parents[i] = RANDOM_SOLUTION(self.nextAvailableID, seed)
+            self.parents[i] = RANDOM_SOLUTION(self.nextAvailableID)
             self.nextAvailableID +=1
         self.child = None
         self.fitness_vals = []
@@ -32,6 +33,7 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         self.Mutate()
         for child in self.children.items():
             child[1].Create_Brain()
+            # child[1].Create_Body()
         self.Evaluate(self.children)
         self.Select()
 
@@ -39,6 +41,9 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         for i in self.parents.keys():
             self.children[i] = copy.deepcopy(self.parents[i])
             self.children[i].Set_ID(self.nextAvailableID)
+            if self.children[i].weights.all() != self.parents[i].weights.all() and self.children[i].fitness != self.parents[i].fitness:
+                print('FAILURE')
+                exit()
             self.nextAvailableID +=1
 
 
@@ -52,12 +57,18 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         for i in range (populationSize):
             if self.children[i].fitness > self.parents[i].fitness:
                 self.parents[i] = self.children[i]
+            
+            
+
+            
+            
+            
 
     def Show_Best(self):
         min_parent =  None
-        min_parent_fitness = math.inf
+        min_parent_fitness = 0
         for i in self.parents.items():
-            if i[1].fitness < min_parent_fitness:
+            if i[1].fitness > min_parent_fitness:
                 min_parent = i[1]
                 min_parent_fitness = min_parent.fitness
 
@@ -68,9 +79,9 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
 
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
-        os.system("rm body*.urdf")
+        # os.system("rm body*.urdf")
         min_parent.Create_Brain()
-        min_parent.Create_Body()
+        # min_parent.Create_Body()
 
     def Evaluate(self,solutions):
         for i in solutions.keys():
@@ -85,9 +96,9 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
 
     def Save_Best_Fitness_For_Gen(self):
         min_parent =  None
-        min_parent_fitness = math.inf
+        min_parent_fitness = 0
         for i in self.parents.items():
-            if i[1].fitness < min_parent_fitness:
+            if i[1].fitness > min_parent_fitness:
                 min_parent = i[1]
                 min_parent_fitness = min_parent.fitness
         self.fitness_vals.append(min_parent_fitness)

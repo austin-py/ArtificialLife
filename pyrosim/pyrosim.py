@@ -76,7 +76,7 @@ def Prepare_Link_Dictionary(bodyID):
 
         jointName = jointName.split("_")
 
-        print(jointName)
+        # print(jointName)
 
         linkName = jointName[1]
 

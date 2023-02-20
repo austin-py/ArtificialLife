@@ -14,11 +14,10 @@ from robot import ROBOT
 
 
 class SIMULATION:
-    def __init__(self,directOrGUI,solutionID,bodyID) -> None:
+    def __init__(self,directOrGUI,solutionID) -> None:
         self.physicsClient = None 
         self.directOrGUI = directOrGUI
         self.solutionID = solutionID
-        self.bodyID = bodyID
         if directOrGUI == "DIRECT":
             self.physicsClient = p.connect(p.DIRECT)
         else:
@@ -31,7 +30,7 @@ class SIMULATION:
 
         self.world = WORLD()
         # print("World set up")
-        self.robot = ROBOT(solutionID,self.bodyID)
+        self.robot = ROBOT(solutionID)
         # print("Simulation set up succesfully")
 
     def Run(self):
