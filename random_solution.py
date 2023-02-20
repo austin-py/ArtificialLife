@@ -19,6 +19,7 @@ class RANDOM_SOLUTION():
     def __init__(self, nextAvailableID, seed) -> None:
         self.myID = nextAvailableID
         self.randomSeed = seed
+        random.seed(self.randomSeed)
         self.fitness = 0
         self.Create_World()
         self.idNum = 0 
@@ -34,10 +35,11 @@ class RANDOM_SOLUTION():
        
        
 
-    def Start_Simulation(self,directorgui):
+    def Start_Simulation(self,directorgui,bodyID = 0):
+        # print('Weights for this round are:', self.weights)
         print("Running simulate")
         # os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &")
-        simulate(directorgui,str(self.myID))
+        simulate(directorgui,str(self.myID),bodyID = str(bodyID))
         print("Command executed") 
 
     def Wait_For_Simulation_To_End(self):
@@ -68,7 +70,6 @@ class RANDOM_SOLUTION():
 # size = depth, width, height 
     def Create_Body(self):
         pyrosim.Start_URDF("body{}.urdf".format(self.myID))
-        random.seed(self.randomSeed)
         random_sensor = random.randint(0,10)
         depth = random.random() + 0.01
         width = random.random() * 2 + 0.01 
@@ -104,9 +105,9 @@ class RANDOM_SOLUTION():
             joint_name = parent + "_" + block_name
 
             type = 'revolute'
-            floating = random.randint(0,10) % 10 == 0
-            if floating: 
-                type = 'floating'
+            # floating = random.randint(0,10) % 10 == 0
+            # if floating: 
+                # type = 'floating'
 
 
             if direction == 1:
@@ -206,8 +207,8 @@ class RANDOM_SOLUTION():
             # print("attempted to add motor")
 
 
-        for currentRow in range(self.numSensorsNeurons): 
-         for currentColumn in range(self.numMotorNeurons): 
+        for currentRow in range(self.numSensorsNeurons - 1): 
+         for currentColumn in range(self.numMotorNeurons - 1): 
              pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.numSensorsNeurons, weight = self.weights[currentRow][currentColumn] )
         
         pyrosim.End()
@@ -216,12 +217,15 @@ class RANDOM_SOLUTION():
         try:
             row = random.randint(0,self.numSensorsNeurons - 1)
             column = random.randint(0,self.numMotorNeurons - 1)
-            print("Sensors: ", self.numSensorsNeurons, " Motors: ", self.numMotorNeurons)
-            print("Row: ", row, "Column: ", column )
-            print(self.weights)
+            # print("Sensors: ", self.numSensorsNeurons, " Motors: ", self.numMotorNeurons)
+            # print("Row: ", row, "Column: ", column )
+            # print(self.weights)
+            # print(self.weights[row][column])
             self.weights[row][column] =  random.random() * 2 - 1
+            # print(self.weights[row][column])
         except ValueError:
             print("FAILED")
+            exit()
         
 
     

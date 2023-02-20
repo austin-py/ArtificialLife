@@ -9,7 +9,7 @@ from simulation import SIMULATION
 # simulation.Run()
 # simulation.Get_Fitness()
 
-def simulate(directOrGUI,solutionID):
-    simulation = SIMULATION(directOrGUI,int(solutionID))
+def simulate(directOrGUI,solutionID,bodyID = 0):
+    simulation = SIMULATION(directOrGUI,int(solutionID),bodyID=bodyID)
     simulation.Run()
     simulation.Get_Fitness()

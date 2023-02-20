@@ -32,7 +32,6 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         self.Mutate()
         for child in self.children.items():
             child[1].Create_Brain()
-            child[1].Create_Body()
         self.Evaluate(self.children)
         self.Select()
 
@@ -51,7 +50,7 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
 
     def Select(self):
         for i in range (populationSize):
-            if self.children[i].fitness < self.parents[i].fitness:
+            if self.children[i].fitness > self.parents[i].fitness:
                 self.parents[i] = self.children[i]
 
     def Show_Best(self):

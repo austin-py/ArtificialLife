@@ -13,11 +13,11 @@ import constants as c
 
 
 class ROBOT:
-    def __init__(self,solutionID) -> None:
+    def __init__(self,solutionID,bodyID = 0) -> None:
         self.solutionID = solutionID
         self.sensors = {}
         self.motors = {}
-        self.robotId = p.loadURDF("body{}.urdf".format(solutionID))
+        self.robotId = p.loadURDF("body{}.urdf".format(bodyID))
         self.nn = NEURAL_NETWORK("brain{}.nndf".format(solutionID))
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
@@ -55,8 +55,8 @@ class ROBOT:
         yCoord = basePosition[2]
         zCoord = basePosition[1]
 
-        dist_squared = ((xCoordinateOfLinkZero - (-10))**2 + (zCoord - (10))**2 + (yCoord - (2))**2)
+        dist_squared = ((xCoordinateOfLinkZero - (0))**2 + (zCoord - (0))**2 + (yCoord - (0))**2)
         dist = math.sqrt(dist_squared)
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
-            f.write(str(xCoordinateOfLinkZero))
+            f.write(str(dist))
         os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))
