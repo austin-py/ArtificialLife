@@ -7,14 +7,13 @@ from random_solution import RANDOM_SOLUTION
 from constants import numberOfGenerations, populationSize
 
 class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
-    def __init__(self,seed) -> None:
+    def __init__(self) -> None:
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
         os.system("rm body*.urdf")
         self.parents = {}
         self.children = {}
         self.nextAvailableID = 0
-        random.seed(seed)
         for i in range(populationSize):
             self.parents[i] = RANDOM_SOLUTION(self.nextAvailableID)
             self.nextAvailableID +=1
