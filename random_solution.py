@@ -279,9 +279,7 @@ class RANDOM_SOLUTION():
                 val = random.random() * 2 - 1
                 self.weights[row][column] =  val 
             except ValueError as e :
-                print(e)
-                print('SAD')
-                exit()
+                self.Mutate_Body()
         elif body_or_weights >= 70 and body_or_weights <= 90:
             self.Mutate_Body()
         else:
