@@ -30,9 +30,6 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
     def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        for child in self.children.items():
-            child[1].Create_Brain()
-            # child[1].Create_Body()
         self.Evaluate(self.children)
         self.Select()
 
@@ -73,14 +70,15 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
 
         print("Our best fitness value was: ", min_parent_fitness)
         min_parent.Create_Brain()
+        min_parent.Recreate_Body()
         min_parent.Start_Simulation("GUI")
         min_parent.Wait_For_Simulation_To_End()
 
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
-        # os.system("rm body*.urdf")
+        os.system("rm body*.urdf")
         min_parent.Create_Brain()
-        # min_parent.Create_Body()
+        min_parent.Recreate_Body()
 
     def Evaluate(self,solutions):
         for i in solutions.keys():

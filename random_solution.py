@@ -28,12 +28,7 @@ class RANDOM_SOLUTION():
         self.joints = []
         self.numSensorsNeurons = 0 
         self.numMotorNeurons = 0
-
-        # self.linksWithSensors = []
-        # self.linksWithoutSensors = [] 
-        # self.jointsWithInfo = []
         self.pieces = []
-
 
         self.Create_Body()
         self.weights = numpy.random.rand(self.numSensorsNeurons,self.numMotorNeurons)
@@ -88,6 +83,7 @@ class RANDOM_SOLUTION():
         prev_direction = 1
         if random_sensor % 2 == 0:
             self.links.append("Torso")
+            self.numSensorsNeurons +=1
             pyrosim.Send_Cube(name="Torso", pos=[0,0,0.5] , size=[depth ,width ,height ], color="green",rgba = ["0","1.0","0","1,0"])
             self.pieces.append([0,{'name': "Torso", 'pos':[0,0,0.5],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
         else:
@@ -257,7 +253,6 @@ class RANDOM_SOLUTION():
         pyrosim.End()
 
     def Create_Brain(self):
-        print("brain{}.nndf".format(self.myID))
         pyrosim.Start_NeuralNetwork("brain{}.nndf".format(self.myID))
         self.idNum = 0 
         for link in self.links: 
@@ -270,25 +265,42 @@ class RANDOM_SOLUTION():
             self.idNum +=1
             # print("attempted to add motor")
 
-
-        for currentRow in range(self.numSensorsNeurons - 1): 
-         for currentColumn in range(self.numMotorNeurons - 1): 
-             pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.numSensorsNeurons, weight = self.weights[currentRow][currentColumn] )
-        
+        try:
+            for currentRow in range(self.numSensorsNeurons - 1): 
+             for currentColumn in range(self.numMotorNeurons - 1): 
+                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.numSensorsNeurons, weight = self.weights[currentRow][currentColumn] )
+        except IndexError as i:
+            print(i)
+            print('BRAIN')
+            print(self.links)
+            print('row: ', currentRow," column: ", currentColumn, ' NumSensors: ', self.numSensorsNeurons, ' Num Motors: ', self.numMotorNeurons )
+            print(self.weights)
+            exit()
         pyrosim.End()
 
     def Mutate(self):
-        try:
-            row = random.randint(0,self.numSensorsNeurons - 1)
-            column = random.randint(0,self.numMotorNeurons - 1)
-            val = random.random() * 2 - 1
-            print(val)
-            self.weights[row][column] =  val 
-            # print(self.weights[row][column]
-        except ValueError as e :
+        body_or_weights = random.randint(0,100)
+        if body_or_weights < 70:
+            try:
+                row = random.randint(0,self.numSensorsNeurons - 1)
+                column = random.randint(0,self.numMotorNeurons - 1)
+                val = random.random() * 2 - 1
+                self.weights[row][column] =  val 
+            except ValueError as e :
+                pass
+            except IndexError as i:
+                print(i)
+                print('MUTATE')
+                print(self.links)
+                print('row: ', row," column: ", column, ' NumSensors: ', self.numSensorsNeurons, ' Num Motors: ', self.numMotorNeurons  )
+                print(self.weights)
+                exit()
+        elif body_or_weights >= 70 and body_or_weights <= 90:
+            self.Mutate_Body()
+        else:
             pass
-            # print("FAILED", e)
-            # exit()
+        self.Recreate_Body()
+        self.Create_Brain()
         
 
     
@@ -310,13 +322,43 @@ class RANDOM_SOLUTION():
                                 type = joint['type'], position = joint['position'], jointAxis= joint['jointAxis']) 
         pyrosim.End()
              
-        
+    def Mutate_Body(self):
+        piece_selection = random.randint(0,len(self.pieces) - 1)
+        piece = self.pieces[piece_selection]
+        if piece[0] == 0:
+            sensored_link = piece[1]
+            index = self.links.index(sensored_link['name'])
+            print(self.numSensorsNeurons,self.numMotorNeurons)
+            print(self.weights)
+            print(self.links)
+            self.links.remove(sensored_link['name']) 
+            self.numSensorsNeurons -=1
+            piece[0] = 1
+            print(self.weights)
+            self.weights = numpy.delete(self.weights,index,axis=0)
+        elif piece[0] == 1:
+            unsensored_link = piece[1]
+            self.links.append(unsensored_link['name'])
+            self.numSensorsNeurons +=1
+            piece[0] = 0
+            piece[1]['color'] = "green"
+            piece[1]['rgba'] = ["0","1.0","0","1,0"]
+            temp = numpy.random.rand(1,self.numMotorNeurons)
+            self.weights = numpy.append(self.weights,temp,axis=0)
+        elif piece[0] == 2:
+            random_axis = random.randint(1,20)
+            if random_axis == 1 or random_axis > 6:
+                piece[1]['jointAxis'] = '0 1 0'
+            elif random_axis == 2:
+                piece[1]['jointAxis'] = '1 0 1'
+            elif random_axis == 3:
+                piece[1]['jointAxis'] = '0 0 1'
+            elif random_axis == 4: 
+                piece[1]['jointAxis'] = '1 0 0'
+            elif random_axis == 5: 
+                piece[1]['jointAxis'] = '0 1 1'
+            elif random_axis == 6:
+                piece[1]['jointAxis'] = '1 1 0'
+            
 
-
-r = RANDOM_SOLUTION(0)
-r.Set_ID(3)
-r.Recreate_Body()
-print(r.myID)
-r.Create_Brain()
-r.Evaluate('DIRECT')
 
