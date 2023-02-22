@@ -13,7 +13,7 @@ import constants as c
 
 
 class ROBOT:
-    def __init__(self,solutionID) -> None:
+    def __init__(self,solutionID,delete=True) -> None:
         self.solutionID = solutionID
         self.sensors = {}
         self.motors = {}
@@ -22,8 +22,9 @@ class ROBOT:
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
         self.Prepare_to_Act()
-        os.system("rm brain{}.nndf".format(solutionID))
-        os.system("rm body{}.urdf".format(solutionID))
+        if delete:
+            os.system("rm brain{}.nndf".format(solutionID))
+            os.system("rm body{}.urdf".format(solutionID))
         
 
     def Prepare_To_Sense(self):

@@ -1,10 +1,7 @@
-import random 
-import numpy
 import time 
 
 import pybullet as p
 import pybullet_data
-import pyrosim.pyrosim as pyrosim
         
 import constants as c 
 from world import WORLD
@@ -14,7 +11,7 @@ from robot import ROBOT
 
 
 class SIMULATION:
-    def __init__(self,directOrGUI,solutionID) -> None:
+    def __init__(self,directOrGUI,solutionID,delete = True) -> None:
         self.physicsClient = None 
         self.directOrGUI = directOrGUI
         self.solutionID = solutionID
@@ -30,7 +27,7 @@ class SIMULATION:
 
         self.world = WORLD()
         # print("World set up")
-        self.robot = ROBOT(solutionID)
+        self.robot = ROBOT(solutionID,delete=delete)
         # print("Simulation set up succesfully")
 
     def Run(self):

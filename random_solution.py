@@ -265,17 +265,9 @@ class RANDOM_SOLUTION():
             self.idNum +=1
             # print("attempted to add motor")
 
-        try:
-            for currentRow in range(self.numSensorsNeurons - 1): 
-             for currentColumn in range(self.numMotorNeurons - 1): 
-                 pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.numSensorsNeurons, weight = self.weights[currentRow][currentColumn] )
-        except IndexError as i:
-            print(i)
-            print('BRAIN')
-            print(self.links)
-            print('row: ', currentRow," column: ", currentColumn, ' NumSensors: ', self.numSensorsNeurons, ' Num Motors: ', self.numMotorNeurons )
-            print(self.weights)
-            exit()
+        for currentRow in range(self.numSensorsNeurons - 1): 
+            for currentColumn in range(self.numMotorNeurons - 1): 
+                pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.numSensorsNeurons, weight = self.weights[currentRow][currentColumn] )
         pyrosim.End()
 
     def Mutate(self):
@@ -287,13 +279,8 @@ class RANDOM_SOLUTION():
                 val = random.random() * 2 - 1
                 self.weights[row][column] =  val 
             except ValueError as e :
-                pass
-            except IndexError as i:
-                print(i)
-                print('MUTATE')
-                print(self.links)
-                print('row: ', row," column: ", column, ' NumSensors: ', self.numSensorsNeurons, ' Num Motors: ', self.numMotorNeurons  )
-                print(self.weights)
+                print(e)
+                print('SAD')
                 exit()
         elif body_or_weights >= 70 and body_or_weights <= 90:
             self.Mutate_Body()
@@ -328,13 +315,9 @@ class RANDOM_SOLUTION():
         if piece[0] == 0:
             sensored_link = piece[1]
             index = self.links.index(sensored_link['name'])
-            print(self.numSensorsNeurons,self.numMotorNeurons)
-            print(self.weights)
-            print(self.links)
             self.links.remove(sensored_link['name']) 
             self.numSensorsNeurons -=1
             piece[0] = 1
-            print(self.weights)
             self.weights = numpy.delete(self.weights,index,axis=0)
         elif piece[0] == 1:
             unsensored_link = piece[1]
