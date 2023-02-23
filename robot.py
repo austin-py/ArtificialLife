@@ -23,6 +23,7 @@ class ROBOT:
         self.Prepare_To_Sense()
         self.Prepare_to_Act()
         if delete:
+            pass
             os.system("rm brain{}.nndf".format(solutionID))
             os.system("rm body{}.urdf".format(solutionID))
         

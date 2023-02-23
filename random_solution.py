@@ -29,6 +29,8 @@ class RANDOM_SOLUTION():
         self.numSensorsNeurons = 0 
         self.numMotorNeurons = 0
         self.pieces = []
+        self.unclaimedJoints = []
+        self.lastlinks = []
 
         self.Create_Body()
         self.weights = numpy.random.rand(self.numSensorsNeurons,self.numMotorNeurons)
@@ -247,10 +249,103 @@ class RANDOM_SOLUTION():
                 self.links.append(block_name)
                 self.numSensorsNeurons +=1
             self.joints.append(joint_name)
+            self.lastlinks.append([prev_width, prev_depth, prev_height,prev_direction,joint_num,parent])
         # print(self.joints)
         # print(self.links)
 
         pyrosim.End()
+
+
+
+        
+    def create_body_helper(self,prev_width, prev_depth, prev_height,prev_direction,joint_num,parent):
+        random_sensor = random.randint(0,10)
+        if random_sensor % 2 == 0:
+            random_sensor = True
+        else:
+            random_sensor = False
+        
+        depth = random.random() + 0.01 
+        width = random.random() * 2 + 0.01 
+        height = random.random() + 0.01 
+        direction = random.randint(1,3)
+        block_name = "Block" + str(joint_num)
+        joint_name = parent + "_" + block_name
+        random_axis = random.randint(1,20)
+        axis = ''
+        if random_axis == 1 or random_axis > 6:
+            axis = '1 0 0'
+        elif random_axis == 2:
+            axis = '0 1 0'
+        elif random_axis == 3:
+            axis = '0 0 1'
+        elif random_axis == 4: 
+            axis = '1 1 0'
+        elif random_axis == 5: 
+            axis = '1 0 1'
+        elif random_axis == 6:
+            axis = '0 1 1'
+        type = 'revolute'
+        # floating = random.randint(0,10) % 10 == 0
+        # if floating: 
+            # type = 'floating'
+        if direction == 1:
+            if prev_direction == 2:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[copy.copy(prev_depth)/2,copy.copy(prev_width)/2,0], 'jointAxis':axis}])
+            elif prev_direction == 3:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[0,copy.copy(prev_width)/2,copy.copy(prev_height)/2], 'jointAxis':axis}])
+            else:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                         'position':[0,copy.copy(prev_width)/2,0], 'jointAxis':axis}])  
+            if random_sensor:
+                self.pieces.append([0,{'name': block_name, 'pos':[0,copy.copy(width)/2,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
+            else:
+                self.pieces.append([1,{'name': block_name, 'pos':[0,copy.copy(width)/2,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])
+        elif direction == 2:
+            if prev_direction == 1:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[copy.copy(prev_depth)/2,copy.copy(prev_width)/2,0], 'jointAxis':axis}])
+            elif prev_direction == 3:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[copy.copy(prev_depth)/2,0,copy.copy(prev_height)/2], 'jointAxis':axis}])
+            else:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[copy.copy(prev_depth),0,0], 'jointAxis':axis}])                      
+            if random_sensor:
+                self.pieces.append([0,{'name': block_name, 'pos':[copy.copy(depth)/2,0,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
+            else:
+                self.pieces.append([1,{'name': block_name, 'pos':[copy.copy(depth)/2,0,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])
+        elif direction == 3:
+            if prev_direction == 1:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[0,copy.copy(prev_width)/2,copy.copy(prev_height)/2], 'jointAxis':axis}])
+            elif prev_direction == 2:
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                            'position':[copy.copy(prev_depth)/2,0,copy.copy(prev_height)/2], 'jointAxis':axis}])
+            else: 
+                self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
+                                        'position':[0,0,copy.copy(prev_height)], 'jointAxis':axis}])
+            if random_sensor:
+                self.pieces.append([0,{'name': block_name, 'pos':[0,0,copy.copy(height)/2],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
+            else:
+                self.pieces.append([1,{'name': block_name, 'pos':[0,0,copy.copy(height)/2],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])                
+        else:
+            print(direction)
+            exit()
+    
+        parent = block_name
+        prev_width = width
+        prev_depth = depth
+        prev_height = height
+        prev_direction = direction
+        joint_num +=1
+        if random_sensor:
+            self.links.append(block_name)
+            self.numSensorsNeurons +=1
+        self.joints.append(joint_name)
+        self.lastlinks.append([prev_width, prev_depth, prev_height,prev_direction,joint_num,parent])
 
     def Create_Brain(self):
         pyrosim.Start_NeuralNetwork("brain{}.nndf".format(self.myID))
@@ -280,10 +375,16 @@ class RANDOM_SOLUTION():
                 self.weights[row][column] =  val 
             except ValueError as e :
                 self.Mutate_Body()
-        elif body_or_weights >= 70 and body_or_weights <= 90:
+        elif body_or_weights >= 70 and body_or_weights < 73:
+            self.add_link()
+        elif body_or_weights >= 73 and body_or_weights < 75:
+            self.remove_link()
+        elif body_or_weights >= 75 and body_or_weights < 90:
             self.Mutate_Body()
+        elif body_or_weights >= 90 and body_or_weights <= 95:
+            self.Remove_Motor_Neuron()
         else:
-            pass
+            self.Add_Motor_Neuron()
         self.Recreate_Body()
         self.Create_Brain()
         
@@ -306,6 +407,32 @@ class RANDOM_SOLUTION():
                 pyrosim.Send_Joint(name = joint['name']   , parent= joint['parent'] , child = joint['child'] , 
                                 type = joint['type'], position = joint['position'], jointAxis= joint['jointAxis']) 
         pyrosim.End()
+
+    def add_link(self):
+        last_link = self.lastlinks[-1]
+        prev_width = last_link[0]
+        prev_depth = last_link[1]
+        prev_height = last_link[2]
+        prev_direction = last_link[3]
+        joint_num = last_link[4]
+        parent = last_link[5]
+        self.create_body_helper(prev_width,prev_depth,prev_height,prev_direction,joint_num,parent)
+        if 'color' in self.pieces[-1]:
+            temp = numpy.random.rand(self.numSensorsNeurons,1)
+            self.weights = numpy.append(self.weights,temp,axis=1)
+        temp = numpy.random.rand(1,self.numMotorNeurons)
+        self.weights = numpy.append(self.weights,temp,axis=0)
+
+    def remove_link(self):
+        temp = self.pieces.pop()
+        joint = self.pieces.pop()
+        self.Remove_Motor_Neuron(joint[1]['name'],False)
+        self.lastlinks.pop()
+        if 'color' in temp[1].keys():
+            self.numSensorsNeurons -=1
+            self.links.remove(temp[1]['name'])
+
+        
              
     def Mutate_Body(self):
         piece_selection = random.randint(0,len(self.pieces) - 1)
@@ -341,5 +468,25 @@ class RANDOM_SOLUTION():
             elif random_axis == 6:
                 piece[1]['jointAxis'] = '1 1 0'
             
+    def Remove_Motor_Neuron(self,joint = None,dont_delete = True):
+        if joint:
+            joint = joint
+            index = -1
+        else:
+            joint = random.choice(self.joints)
+            index = self.joints.index(joint)
+        self.joints.remove(joint)
+        self.weights = numpy.delete(self.weights,index,axis=1)
+        if dont_delete:
+            self.unclaimedJoints.append(joint)
+        self.numMotorNeurons -=1
 
+    def Add_Motor_Neuron(self):
+        if not self.unclaimedJoints: return 
+        joint = random.choice(self.unclaimedJoints)
+        self.numMotorNeurons +=1
+        self.joints.append(joint)
+        temp = numpy.random.rand(self.numSensorsNeurons,1)
+        self.weights = numpy.append(self.weights,temp,axis=1)
+            
 

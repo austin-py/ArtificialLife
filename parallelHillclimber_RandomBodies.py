@@ -77,6 +77,7 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
         os.system("rm body*.urdf")
+
         min_parent.Create_Brain()
         min_parent.Recreate_Body()
 
