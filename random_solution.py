@@ -41,7 +41,7 @@ class RANDOM_SOLUTION():
         # print('Weights for this round are:', self.weights)
         print("Running simulate")
         # os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &")
-        simulate(directorgui,str(self.myID),self.links)
+        simulate(directorgui,str(self.myID),self.links,self.joints)
         print("Command executed") 
 
     def Wait_For_Simulation_To_End(self):

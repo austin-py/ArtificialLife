@@ -13,9 +13,10 @@ import constants as c
 
 
 class ROBOT:
-    def __init__(self,solutionID,links, delete=True) -> None:
+    def __init__(self,solutionID,links, joints, delete=True) -> None:
         self.solutionID = solutionID
         self.links = links
+        self.joints = joints
         self.sensors = {}
         self.motors = {}
         self.robotId = p.loadURDF("body{}.urdf".format(solutionID))
@@ -38,7 +39,7 @@ class ROBOT:
             self.sensors[sensor].Get_Value(t)
 
     def Prepare_to_Act(self):
-        for jointName in pyrosim.jointNamesToIndices:
+        for jointName in self.joints:
             self.motors[jointName] = MOTOR(jointName)
 
     def Act(self,t):
