@@ -254,10 +254,7 @@ class RANDOM_SOLUTION():
         # print(self.links)
 
         pyrosim.End()
-
-
-
-        
+    
     def create_body_helper(self,prev_width, prev_depth, prev_height,prev_direction,joint_num,parent):
         random_sensor = random.randint(0,10)
         if random_sensor % 2 == 0:
@@ -341,10 +338,11 @@ class RANDOM_SOLUTION():
         prev_height = height
         prev_direction = direction
         joint_num +=1
-        if random_sensor:
-            self.links.append(block_name)
-            self.numSensorsNeurons +=1
+        # if random_sensor:
+            # self.links.append(block_name)
+            # self.numSensorsNeurons +=1
         self.joints.append(joint_name)
+        self.numMotorNeurons +=1
         self.lastlinks.append([prev_width, prev_depth, prev_height,prev_direction,joint_num,parent])
 
     def Create_Brain(self):
@@ -388,8 +386,6 @@ class RANDOM_SOLUTION():
         self.Recreate_Body()
         self.Create_Brain()
         
-
-    
     def Set_ID(self, ID):
         self.myID = ID
 
@@ -416,24 +412,33 @@ class RANDOM_SOLUTION():
         prev_direction = last_link[3]
         joint_num = last_link[4]
         parent = last_link[5]
+        print(len(self.pieces))
         self.create_body_helper(prev_width,prev_depth,prev_height,prev_direction,joint_num,parent)
+        print(len(self.pieces))
+        print(self.weights)
+        print(self.numMotorNeurons,self.numSensorsNeurons)
         if 'color' in self.pieces[-1]:
-            temp = numpy.random.rand(self.numSensorsNeurons,1)
-            self.weights = numpy.append(self.weights,temp,axis=1)
-        temp = numpy.random.rand(1,self.numMotorNeurons)
-        self.weights = numpy.append(self.weights,temp,axis=0)
+            #Add sensor neuron 
+            temp = numpy.random.rand(1,self.numMotorNeurons)
+            self.weights = numpy.append(self.weights,temp,axis=0)
+
+        #Add motor neuron 
+        print(self.weights)
+        temp = numpy.random.rand(self.numSensorsNeurons,1)
+        self.weights = numpy.append(self.weights,temp,axis=1)
 
     def remove_link(self):
         temp = self.pieces.pop()
         joint = self.pieces.pop()
-        self.Remove_Motor_Neuron(joint[1]['name'],False)
+        if joint[1]['name'] in self.joints:
+            self.Remove_Motor_Neuron(joint[1]['name'],False)
         self.lastlinks.pop()
-        if 'color' in temp[1].keys():
+        if temp[1]['name'] in self.links:
             self.numSensorsNeurons -=1
+            print(self.links)
+            print(temp[1]['name'])
             self.links.remove(temp[1]['name'])
-
-        
-             
+      
     def Mutate_Body(self):
         piece_selection = random.randint(0,len(self.pieces) - 1)
         piece = self.pieces[piece_selection]
@@ -443,6 +448,7 @@ class RANDOM_SOLUTION():
             self.links.remove(sensored_link['name']) 
             self.numSensorsNeurons -=1
             piece[0] = 1
+            #Remove sensor 
             self.weights = numpy.delete(self.weights,index,axis=0)
         elif piece[0] == 1:
             unsensored_link = piece[1]
@@ -451,6 +457,7 @@ class RANDOM_SOLUTION():
             piece[0] = 0
             piece[1]['color'] = "green"
             piece[1]['rgba'] = ["0","1.0","0","1,0"]
+            #Add Sensor
             temp = numpy.random.rand(1,self.numMotorNeurons)
             self.weights = numpy.append(self.weights,temp,axis=0)
         elif piece[0] == 2:
@@ -473,9 +480,18 @@ class RANDOM_SOLUTION():
             joint = joint
             index = -1
         else:
+            if not self.joints: return
             joint = random.choice(self.joints)
             index = self.joints.index(joint)
+        print(joint)
+        print(self.joints)
         self.joints.remove(joint)
+        # if index == len(self.joints):
+            # index -=1
+            #Todo problem is that we have 5 joints and right now only 4 columns/rows
+        print(index)
+        print(self.numMotorNeurons)
+        print(self.weights)
         self.weights = numpy.delete(self.weights,index,axis=1)
         if dont_delete:
             self.unclaimedJoints.append(joint)
@@ -487,6 +503,28 @@ class RANDOM_SOLUTION():
         self.numMotorNeurons +=1
         self.joints.append(joint)
         temp = numpy.random.rand(self.numSensorsNeurons,1)
+        print(temp)
+        print(self.weights)
         self.weights = numpy.append(self.weights,temp,axis=1)
             
 
+
+
+#Num sensors is rows 
+#Num motors is columns 
+# (rows,columns)
+
+#To add row(Add Sensor):
+    # generate (1,num_columns)
+    # add on axis 0 
+
+#TO delete row(Delete Sensor):
+    # Delete on axis 0 
+
+
+#To add colum (Add Motor):
+    #Generate (num_rows,1)
+    #Add on axis 1 
+
+# To delete column(Remove Motor):
+    #Delete on axis 1 
