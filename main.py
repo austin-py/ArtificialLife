@@ -4,8 +4,8 @@ import search
 from simulate import simulate
 def main():
     vals = {}
-    for i in range(5):
-        fitness_vals = search.random_evolved()
+    for i in range(10):
+        fitness_vals = search.random_evolved(show=False)
         # print(fitness_vals)
         vals[i] = fitness_vals
     with open('fitness_vals.json','w') as f:
