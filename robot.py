@@ -13,8 +13,9 @@ import constants as c
 
 
 class ROBOT:
-    def __init__(self,solutionID,delete=True) -> None:
+    def __init__(self,solutionID,links, delete=True) -> None:
         self.solutionID = solutionID
+        self.links = links
         self.sensors = {}
         self.motors = {}
         self.robotId = p.loadURDF("body{}.urdf".format(solutionID))
@@ -29,7 +30,7 @@ class ROBOT:
         
 
     def Prepare_To_Sense(self):
-        for linkName in pyrosim.linkNamesToIndices:
+        for linkName in self.links:
             self.sensors[linkName] = SENSOR(linkName)
     
     def Sense(self,t):

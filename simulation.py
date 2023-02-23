@@ -11,7 +11,7 @@ from robot import ROBOT
 
 
 class SIMULATION:
-    def __init__(self,directOrGUI,solutionID,delete = True) -> None:
+    def __init__(self,directOrGUI,solutionID,links,delete = True) -> None:
         self.physicsClient = None 
         self.directOrGUI = directOrGUI
         self.solutionID = solutionID
@@ -27,7 +27,7 @@ class SIMULATION:
 
         self.world = WORLD()
         # print("World set up")
-        self.robot = ROBOT(solutionID,delete=delete)
+        self.robot = ROBOT(solutionID,links,delete=delete)
         # print("Simulation set up succesfully")
 
     def Run(self):

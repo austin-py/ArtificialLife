@@ -41,7 +41,7 @@ class RANDOM_SOLUTION():
         # print('Weights for this round are:', self.weights)
         print("Running simulate")
         # os.system("python3 simulate.py " + directorgui + " " + str(self.myID) + " 2&>1 &")
-        simulate(directorgui,str(self.myID))
+        simulate(directorgui,str(self.myID),self.links)
         print("Command executed") 
 
     def Wait_For_Simulation_To_End(self):
@@ -252,12 +252,6 @@ class RANDOM_SOLUTION():
         pyrosim.End()
     
     def create_body_helper(self,prev_width, prev_depth, prev_height,prev_direction,joint_num,parent):
-        random_sensor = random.randint(0,10)
-        if random_sensor % 2 == 0:
-            random_sensor = True
-        else:
-            random_sensor = False
-        
         depth = random.random() + 0.01 
         width = random.random() * 2 + 0.01 
         height = random.random() + 0.01 
@@ -292,10 +286,7 @@ class RANDOM_SOLUTION():
             else:
                 self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
                                          'position':[0,copy.copy(prev_width)/2,0], 'jointAxis':axis}])  
-            if random_sensor:
-                self.pieces.append([0,{'name': block_name, 'pos':[0,copy.copy(width)/2,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
-            else:
-                self.pieces.append([1,{'name': block_name, 'pos':[0,copy.copy(width)/2,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])
+            self.pieces.append([1,{'name': block_name, 'pos':[0,copy.copy(width)/2,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])
         elif direction == 2:
             if prev_direction == 1:
                 self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
@@ -306,10 +297,7 @@ class RANDOM_SOLUTION():
             else:
                 self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
                                             'position':[copy.copy(prev_depth),0,0], 'jointAxis':axis}])                      
-            if random_sensor:
-                self.pieces.append([0,{'name': block_name, 'pos':[copy.copy(depth)/2,0,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
-            else:
-                self.pieces.append([1,{'name': block_name, 'pos':[copy.copy(depth)/2,0,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])
+            self.pieces.append([1,{'name': block_name, 'pos':[copy.copy(depth)/2,0,0],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])
         elif direction == 3:
             if prev_direction == 1:
                 self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
@@ -320,10 +308,7 @@ class RANDOM_SOLUTION():
             else: 
                 self.pieces.append([2,{'name':joint_name,'parent':parent,'child':block_name,'type':type,
                                         'position':[0,0,copy.copy(prev_height)], 'jointAxis':axis}])
-            if random_sensor:
-                self.pieces.append([0,{'name': block_name, 'pos':[0,0,copy.copy(height)/2],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)],'color': "green", 'rgba': ["0","1.0","0","1,0"]}])
-            else:
-                self.pieces.append([1,{'name': block_name, 'pos':[0,0,copy.copy(height)/2],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])                
+            self.pieces.append([1,{'name': block_name, 'pos':[0,0,copy.copy(height)/2],'size':[copy.copy(depth) ,copy.copy(width) ,copy.copy(height)]}])                
         else:
             print(direction)
             exit()
@@ -334,11 +319,7 @@ class RANDOM_SOLUTION():
         prev_height = height
         prev_direction = direction
         joint_num +=1
-        # if random_sensor:
-            # self.links.append(block_name)
-            # self.numSensorsNeurons +=1
         self.unclaimedJoints.append(joint_name)
-        # self.numMotorNeurons +=1
         self.lastlinks.append([prev_width, prev_depth, prev_height,prev_direction,joint_num,parent])
 
     def Create_Brain(self):
@@ -408,28 +389,14 @@ class RANDOM_SOLUTION():
         prev_direction = last_link[3]
         joint_num = last_link[4]
         parent = last_link[5]
-        print(len(self.pieces))
-        print(self.numMotorNeurons,self.numSensorsNeurons)
         self.create_body_helper(prev_width,prev_depth,prev_height,prev_direction,joint_num,parent)
-        print(len(self.pieces))
-        print(self.weights)
-        print(self.numMotorNeurons,self.numSensorsNeurons)
-        if 'color' in self.pieces[-1]:
-            #Add sensor neuron 
-            temp = numpy.random.rand(1,self.numMotorNeurons)
-            self.weights = numpy.append(self.weights,temp,axis=0)
-
-        # Add motor neuron 
-        # print(self.weights)
-        # temp = numpy.random.rand(self.numSensorsNeurons,1)
-        # self.weights = numpy.append(self.weights,temp,axis=1)
 
     def remove_link(self):
         temp = self.pieces.pop()
         joint = self.pieces.pop()
+        self.lastlinks.pop()
         if joint[1]['name'] in self.joints:
             self.Remove_Motor_Neuron(joint[1]['name'],False)
-        self.lastlinks.pop()
         if temp[1]['name'] in self.links:
             self.numSensorsNeurons -=1
             print(self.links)
