@@ -37,9 +37,6 @@ class RANDOM_SOLUTION():
         self.weights = self.weights * 2 - 1
         self.Create_Brain()
         
-       
-       
-
     def Start_Simulation(self,directorgui):
         # print('Weights for this round are:', self.weights)
         print("Running simulate")
@@ -72,7 +69,6 @@ class RANDOM_SOLUTION():
 
        pyrosim.End()
 
-# size = depth, width, height 
     def Create_Body(self):
         pyrosim.Start_URDF("body{}.urdf".format(self.myID))
         random_sensor = random.randint(0,10)
@@ -341,8 +337,8 @@ class RANDOM_SOLUTION():
         # if random_sensor:
             # self.links.append(block_name)
             # self.numSensorsNeurons +=1
-        self.joints.append(joint_name)
-        self.numMotorNeurons +=1
+        self.unclaimedJoints.append(joint_name)
+        # self.numMotorNeurons +=1
         self.lastlinks.append([prev_width, prev_depth, prev_height,prev_direction,joint_num,parent])
 
     def Create_Brain(self):
@@ -413,6 +409,7 @@ class RANDOM_SOLUTION():
         joint_num = last_link[4]
         parent = last_link[5]
         print(len(self.pieces))
+        print(self.numMotorNeurons,self.numSensorsNeurons)
         self.create_body_helper(prev_width,prev_depth,prev_height,prev_direction,joint_num,parent)
         print(len(self.pieces))
         print(self.weights)
@@ -422,10 +419,10 @@ class RANDOM_SOLUTION():
             temp = numpy.random.rand(1,self.numMotorNeurons)
             self.weights = numpy.append(self.weights,temp,axis=0)
 
-        #Add motor neuron 
-        print(self.weights)
-        temp = numpy.random.rand(self.numSensorsNeurons,1)
-        self.weights = numpy.append(self.weights,temp,axis=1)
+        # Add motor neuron 
+        # print(self.weights)
+        # temp = numpy.random.rand(self.numSensorsNeurons,1)
+        # self.weights = numpy.append(self.weights,temp,axis=1)
 
     def remove_link(self):
         temp = self.pieces.pop()
@@ -437,7 +434,9 @@ class RANDOM_SOLUTION():
             self.numSensorsNeurons -=1
             print(self.links)
             print(temp[1]['name'])
+            index = self.links.index(temp[1]['name'])
             self.links.remove(temp[1]['name'])
+            self.weights = numpy.delete(self.weights,index,axis=0)
       
     def Mutate_Body(self):
         piece_selection = random.randint(0,len(self.pieces) - 1)
@@ -483,15 +482,15 @@ class RANDOM_SOLUTION():
             if not self.joints: return
             joint = random.choice(self.joints)
             index = self.joints.index(joint)
-        print(joint)
-        print(self.joints)
+        # print(joint)
+        # print(self.joints)
         self.joints.remove(joint)
         # if index == len(self.joints):
             # index -=1
             #Todo problem is that we have 5 joints and right now only 4 columns/rows
-        print(index)
-        print(self.numMotorNeurons)
-        print(self.weights)
+        # print(index)
+        # print(self.numMotorNeurons)
+        # print(self.weights)
         self.weights = numpy.delete(self.weights,index,axis=1)
         if dont_delete:
             self.unclaimedJoints.append(joint)
@@ -507,8 +506,7 @@ class RANDOM_SOLUTION():
         print(self.weights)
         self.weights = numpy.append(self.weights,temp,axis=1)
             
-
-
+# size = depth, width, height 
 
 #Num sensors is rows 
 #Num motors is columns 
@@ -528,3 +526,7 @@ class RANDOM_SOLUTION():
 
 # To delete column(Remove Motor):
     #Delete on axis 1 
+
+
+
+    #TOdo somehow need to update pieces when we remove a sensor.... 
