@@ -32,26 +32,38 @@ class ROBOT:
 
     def Prepare_To_Sense(self):
         for linkName in self.links:
-            self.sensors[linkName] = SENSOR(linkName)
+                self.sensors[linkName] = SENSOR(linkName)
     
     def Sense(self,t):
         for sensor in self.sensors:
-            self.sensors[sensor].Get_Value(t)
+            try:
+                self.sensors[sensor].Get_Value(t)
+            except:
+                pass
 
     def Prepare_to_Act(self):
         for jointName in self.joints:
-            self.motors[jointName] = MOTOR(jointName)
+            try:
+                self.motors[jointName] = MOTOR(jointName)
+            except:
+                pass
 
     def Act(self,t):
         for neuronName in self.nn.Get_Neuron_Names():
             if self.nn.Is_Motor_Neuron(neuronName):
                 jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
                 desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
-                self.motors[jointName].Set_Value(self.robotId,desiredAngle)
+                try:
+                    self.motors[jointName].Set_Value(self.robotId,desiredAngle)
+                except:
+                    pass
 
 
     def Think(self):
-        self.nn.Update()
+        try:
+            self.nn.Update()
+        except:
+            pass
 
     def Get_Fitness(self):
         basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
