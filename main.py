@@ -4,7 +4,7 @@ import search
 from simulate import simulate
 def main():
     vals = {}
-    for i in range(1):
+    for i in range(10):
         fitness_vals = search.random_evolved(show=True)
         vals[i] = fitness_vals
     with open('fitness_vals_temp.json','w') as f:

@@ -30,10 +30,11 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
     def Evolve_For_One_Generation(self,gen):
         self.Spawn()
         self.Mutate()
-        if gen % 50 == 0:
-            self.Evaluate(self.children,direct = "GUI")
-        else:
-            self.Evaluate(self.children)
+        # if gen == 0 or gen == numberOfGenerations - 1:
+            # self.Evaluate(self.children,direct = "GUI")
+        # else:
+            # self.Evaluate(self.children)
+        self.Evaluate(self.children)
         self.Select()
 
     def Spawn(self):
@@ -45,7 +46,8 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
                 exit()
             self.nextAvailableID +=1
 
-
+    def showallbest(self):
+        self.Evaluate(self.parents,direct = "GUI")
 
     def Mutate(self):
         for child in self.children.items():
