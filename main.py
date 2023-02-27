@@ -4,10 +4,10 @@ import search
 from simulate import simulate
 def main():
     vals = {}
-    for i in range(10):
-        fitness_vals = search.random_evolved(show=False)
+    for i in range(1):
+        fitness_vals = search.random_evolved(show=True)
         vals[i] = fitness_vals
-    with open('fitness_vals10_3.json','w') as f:
+    with open('fitness_vals_temp.json','w') as f:
         json.dump(vals,f)
 
     # simulate('GUI','679',delete=False)

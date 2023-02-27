@@ -1,14 +1,15 @@
 import numpy 
+import json
 import matplotlib.pyplot as p 
 
-backdata = numpy.load('data/backvalues.npy')
-frontdata = numpy.load('data/frontvalues.npy')
-targetAngles_back = numpy.load('data/targetvalues_back.npy')
-targetAngles_front = numpy.load('data/targetvalues_front.npy')
+# files = ['fitness_vals.json']
+files = ['fitness_vals.json','fitness_vals2.json','fitness_vals10.json','fitness_vals10_2.json','fitness_vals10_3.json']
+for file in files:
+    with open(file,'r') as f:
+        data = json.load(f)
 
-# p.plot(backdata, label = 'BackLeg Data', linewidth = 3)
-# p.plot(frontdata, label = 'FrontLeg Data', linewidth = 3)
-p.plot(range(1000), numpy.sin(targetAngles_back), label = 'Target Back', linewidth = 3)
-p.plot(range(1000), numpy.sin(targetAngles_front), label = 'Target Front', linewidth = 3)
-p.legend()
+    for key in data.keys():
+        p.plot(data[key], label = 'Run Number {}, Evolution Number {}'.format('1',key), linewidth = 2)
+
+# p.legend()
 p.show()

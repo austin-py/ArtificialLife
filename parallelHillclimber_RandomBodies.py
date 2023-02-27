@@ -23,14 +23,17 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
     def Evolve(self):
         self.Evaluate(self.parents)
         for currentGeneration in range(numberOfGenerations):
-            self.Evolve_For_One_Generation()
+            self.Evolve_For_One_Generation(currentGeneration)
             self.Save_Best_Fitness_For_Gen()
             self.Print()
     
-    def Evolve_For_One_Generation(self):
+    def Evolve_For_One_Generation(self,gen):
         self.Spawn()
         self.Mutate()
-        self.Evaluate(self.children)
+        if gen % 50 == 0:
+            self.Evaluate(self.children,direct = "GUI")
+        else:
+            self.Evaluate(self.children)
         self.Select()
 
     def Spawn(self):
@@ -75,9 +78,9 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         min_parent.Create_Brain()
         min_parent.Recreate_Body()
 
-    def Evaluate(self,solutions):
+    def Evaluate(self,solutions,direct = 'DIRECT'):
         for i in solutions.keys():
-            solutions[i].Start_Simulation("DIRECT")
+            solutions[i].Start_Simulation(direct)
         for j in solutions.keys():
             solutions[j].Wait_For_Simulation_To_End()
 

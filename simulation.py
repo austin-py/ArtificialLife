@@ -32,7 +32,7 @@ class SIMULATION:
         # print("Simulation set up succesfully")
 
     def Run(self):
-         for i in range(c.num_steps):
+        for i in range(c.num_steps):
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
