@@ -30,7 +30,7 @@ the complexity and often created worse results instead of better.
 
 Creature Generation Diagram
 ==========================
-![Example Creature Generation](https://github.com/austin-py/ArtificialLife/blob/0de940c026fa403e7679c0dfe1757fd9218d8eff/
+![Creature Generation](https://github.com/austin-py/ArtificialLife/blob/0de940c026fa403e7679c0dfe1757fd9218d8eff/
 creature_gen_diagram.jpg)
 
 
@@ -50,6 +50,16 @@ Creature Mutation
       These are chosen based on what piece of the body is randomly selected, and as such cannot be assigned probabilities. 
   
    
+Creature Mutation Diagram
+=========================
+![Creature Mutation](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/
+creature_mutation.jpg)
+
+Graphs:
+=======
+![Five Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph1.png)
+![Many Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph2.png)
+
 
 TO RUN: 
 ===================
@@ -58,9 +68,10 @@ Simply run "python3 main.py" and it will simulate 10 hill climbers which each ha
 
 Documentation:
 ==============
-To view a 10 second snipit of the work: 
-To view a longer version of the same video:  
-To view an evolutionary run of one creature: 
+To view a 10 second snipit of the work: https://youtu.be/STcML44qikA
+To view a longer version of the same video:  https://youtu.be/u8_N9vxeiaU
+To view one creature in both an evolved and random state: https://youtu.be/_wVzwvb8V4w 
+To view an evolutionary run of one creature (every 50 generations is shown): https://youtu.be/Oq9HjgO-8LM 
 
 
 

@@ -17,8 +17,8 @@ phaseOffset_back = numpy.pi/8
 targetAngles_back = numpy.linspace(0 , 2*numpy.pi, num = 1000)
 
 
-numberOfGenerations = 1000
-populationSize = 1
+numberOfGenerations = 100
+populationSize = 10
 
 
 numSensorNeurons = 0 #7
