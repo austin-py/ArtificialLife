@@ -382,6 +382,7 @@ class RANDOM_SOLUTION():
         pyrosim.End()
 
     def add_link(self):
+        if not self.lastlinks: return 
         last_link = self.lastlinks[-1]
         prev_width = last_link[0]
         prev_depth = last_link[1]
@@ -392,8 +393,11 @@ class RANDOM_SOLUTION():
         self.create_body_helper(prev_width,prev_depth,prev_height,prev_direction,joint_num,parent)
 
     def remove_link(self):
+        if not self.pieces:return
         temp = self.pieces.pop()
+        if not self.pieces:return
         joint = self.pieces.pop()
+        if not self.lastlinks:return
         self.lastlinks.pop()
         if joint[1]['name'] in self.joints:
             self.Remove_Motor_Neuron(joint[1]['name'],False)
@@ -406,6 +410,7 @@ class RANDOM_SOLUTION():
             self.weights = numpy.delete(self.weights,index,axis=0)
       
     def Mutate_Body(self):
+        if not self.pieces: return 
         piece_selection = random.randint(0,len(self.pieces) - 1)
         piece = self.pieces[piece_selection]
         if piece[0] == 0:

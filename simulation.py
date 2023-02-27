@@ -28,6 +28,7 @@ class SIMULATION:
         self.world = WORLD()
         # print("World set up")
         self.robot = ROBOT(solutionID,links,joints,delete=delete)
+        if self.robot == None: return None
         # print("Simulation set up succesfully")
 
     def Run(self):

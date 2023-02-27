@@ -19,7 +19,11 @@ class ROBOT:
         self.joints = joints
         self.sensors = {}
         self.motors = {}
-        self.robotId = p.loadURDF("body{}.urdf".format(solutionID))
+        try:
+            self.robotId = p.loadURDF("body{}.urdf".format(solutionID))
+        except:
+            self.write_0_fitness()
+            return None
         self.nn = NEURAL_NETWORK("brain{}.nndf".format(solutionID))
         pyrosim.Prepare_To_Simulate(self.robotId)
         self.Prepare_To_Sense()
@@ -49,14 +53,14 @@ class ROBOT:
                 pass
 
     def Act(self,t):
-        for neuronName in self.nn.Get_Neuron_Names():
-            if self.nn.Is_Motor_Neuron(neuronName):
-                jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
-                desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
-                try:
+        try:
+            for neuronName in self.nn.Get_Neuron_Names():
+                if self.nn.Is_Motor_Neuron(neuronName):
+                    jointName = self.nn.Get_Motor_Neurons_Joint(neuronName)
+                    desiredAngle = self.nn.Get_Value_Of(neuronName) * c.motorJointRange
                     self.motors[jointName].Set_Value(self.robotId,desiredAngle)
-                except:
-                    pass
+        except:
+            pass
 
 
     def Think(self):
@@ -66,14 +70,22 @@ class ROBOT:
             pass
 
     def Get_Fitness(self):
-        basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
-        basePosition = basePositionAndOrientation[0]
-        xCoordinateOfLinkZero = basePosition[0]
-        yCoord = basePosition[2]
-        zCoord = basePosition[1]
+        try:
+            basePositionAndOrientation = p.getBasePositionAndOrientation(self.robotId)
+            basePosition = basePositionAndOrientation[0]
+            xCoordinateOfLinkZero = basePosition[0]
+            yCoord = basePosition[2]
+            zCoord = basePosition[1]
 
-        dist_squared = ((xCoordinateOfLinkZero - (0))**2 + (zCoord - (0))**2) # + (yCoord - (0))**2)
-        dist = math.sqrt(dist_squared)
+            dist_squared = ((xCoordinateOfLinkZero - (0))**2 + (zCoord - (0))**2) # + (yCoord - (0))**2)
+            dist = math.sqrt(dist_squared)
+        except:
+            dist = 0 
         with open("tmp{}.txt".format(self.solutionID), 'w') as f:
             f.write(str(dist))
+        os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))
+    
+    def write_0_fitness(self):
+        with open("tmp{}.txt".format(self.solutionID), 'w') as f:
+            f.write(str('0.00'))
         os.system("mv tmp{}.txt fitness{}.txt".format(self.solutionID,self.solutionID))
