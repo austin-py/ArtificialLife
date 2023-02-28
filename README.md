@@ -30,8 +30,7 @@ the complexity and often created worse results instead of better.
 
 Creature Generation Diagram
 ==========================
-![Creature Generation](https://github.com/austin-py/ArtificialLife/blob/0de940c026fa403e7679c0dfe1757fd9218d8eff/
-creature_gen_diagram.jpg)
+![Creature Generation](https://github.com/austin-py/ArtificialLife/blob/1287086658b21dccd191fafcf91148e8217c4194/creature_gen_diagram.jpg)
 
 
 Creature Mutation
@@ -52,8 +51,7 @@ Creature Mutation
    
 Creature Mutation Diagram
 =========================
-![Creature Mutation](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/
-creature_mutation.jpg)
+![Creature Mutation](https://github.com/austin-py/ArtificialLife/blob/1287086658b21dccd191fafcf91148e8217c4194/creature_mutation.jpg)
 
 Graphs:
 =======
