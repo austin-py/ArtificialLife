@@ -1,8 +1,8 @@
-from parallelHillclimber import PARALLEL_HILL_CLIMBER
-from parallelHillclimber_RandomBodies import PARALLEL_HILL_CLIMBER_RANDOM_BODY
+from Old.parallelHillclimber import PARALLEL_HILL_CLIMBER
+from Classes.parallelHillclimber_RandomBodies import PARALLEL_HILL_CLIMBER_RANDOM_BODY
 
-from solution import SOLUTION
-from random_solution import RANDOM_SOLUTION
+from Old.solution import SOLUTION
+from Classes.random_solution import RANDOM_SOLUTION
 
 def evolve():
     phc = PARALLEL_HILL_CLIMBER()

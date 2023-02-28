@@ -5,9 +5,8 @@ import time
 import copy 
 
 import pyrosim.pyrosim as pyrosim
-from simulate import simulate
+from helpers.simulate import simulate
 
-import constants as c 
 length = 1
 width = 1
 height = 1

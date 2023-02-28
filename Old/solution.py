@@ -5,7 +5,7 @@ import time
 
 import pyrosim.pyrosim as pyrosim
 
-import constants as c 
+from Classes.constants import Constants
 length = 1
 width = 1
 height = 1
@@ -16,8 +16,9 @@ z = 0.5
 
 class SOLUTION():
     def __init__(self, nextAvailableID) -> None:
+        self.constants = Constants()
         self.myID = nextAvailableID
-        self.weights = numpy.random.rand(c.numSensorNeurons,c.numMotorNeurons)
+        self.weights = numpy.random.rand(self.constants.numSensorNeurons,self.constants.numMotorNeurons)
         self.weights = self.weights * 2 - 1
         self.fitness = 0
         self.Create_World()
@@ -104,9 +105,9 @@ class SOLUTION():
         pyrosim.Send_Motor_Neuron( name = 8 , jointName = "RightLeg_RightLegLower")
 
 
-        for currentRow in range(c.numSensorNeurons): 
-         for currentColumn in range(c.numMotorNeurons): 
-             pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + c.numSensorNeurons, weight = self.weights[currentRow][currentColumn] )
+        for currentRow in range(self.constants.numSensorNeurons): 
+         for currentColumn in range(self.constants.numMotorNeurons): 
+             pyrosim.Send_Synapse( sourceNeuronName = currentRow , targetNeuronName = currentColumn + self.constants.numSensorNeurons, weight = self.weights[currentRow][currentColumn] )
         
         pyrosim.End()
 

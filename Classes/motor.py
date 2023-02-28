@@ -4,10 +4,11 @@ import pybullet as p
 import pybullet_data
 import pyrosim.pyrosim as pyrosim
 
-import constants as c 
+from Classes.constants import Constants
 
 class MOTOR:
     def __init__(self,jointName) -> None:
+        self.constants = Constants()
         self.jointName = jointName
         self.motor_values = numpy.linspace(0 , 2*numpy.pi, num = 1000)
     
@@ -17,4 +18,4 @@ class MOTOR:
             jointName = self.jointName,
             controlMode = p.POSITION_CONTROL,
             targetPosition = desiredAngle,
-            maxForce = c.max_force)
+            maxForce = self.constants.max_force)

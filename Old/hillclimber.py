@@ -1,16 +1,17 @@
 import copy 
 
-from solution import SOLUTION
-from constants import numberOfGenerations
+from Old.solution import SOLUTION
+from Classes.constants import Constants
 
 class HILL_CLIMBER():
     def __init__(self) -> None:
+        self.constants = Constants()
         self.parent = SOLUTION()
         self.child = None
     
     def Evolve(self):
         self.parent.Evaluate("GUI")
-        for currentGeneration in range(numberOfGenerations):
+        for currentGeneration in range(self.constants.numOfGenerations):
             self.Evolve_For_One_Generation()
     
     def Evolve_For_One_Generation(self):

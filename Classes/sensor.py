@@ -1,12 +1,13 @@
 import numpy 
 import pyrosim.pyrosim as pyrosim
 
-import constants as c 
+from Classes.constants import Constants
 
 class SENSOR:
     def __init__(self,linkName) -> None:
         self.linkName = linkName
-        self.values = numpy.zeros(c.num_steps)
+        self.constants = Constants()
+        self.values = numpy.zeros(self.constants.num_steps)
     
     def Get_Value(self,t):
             self.values[t] = pyrosim.Get_Touch_Sensor_Value_For_Link(self.linkName)

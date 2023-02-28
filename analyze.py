@@ -5,7 +5,8 @@ import matplotlib.pyplot as p
 # files = ['fitness_vals.json']
 files = ['fitness_vals.json','fitness_vals2.json','fitness_vals10.json','fitness_vals10_2.json','fitness_vals10_3.json']
 for file in files:
-    with open(file,'r') as f:
+    name = 'Data & Diagrams/' + file
+    with open(name,'r') as f:
         data = json.load(f)
 
     for key in data.keys():

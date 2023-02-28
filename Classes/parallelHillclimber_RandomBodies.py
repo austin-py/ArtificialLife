@@ -1,20 +1,19 @@
 import copy 
 import os 
-import math 
-import random 
 
-from random_solution import RANDOM_SOLUTION
-from constants import numberOfGenerations, populationSize
+from Classes.random_solution import RANDOM_SOLUTION
+from Classes.constants import Constants
 
 class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
     def __init__(self) -> None:
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
         os.system("rm body*.urdf")
+        self.constants = Constants()
         self.parents = {}
         self.children = {}
         self.nextAvailableID = 0
-        for i in range(populationSize):
+        for i in range(self.constants.populationSize):
             self.parents[i] = RANDOM_SOLUTION(self.nextAvailableID)
             self.nextAvailableID +=1
         self.child = None
@@ -22,7 +21,7 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
 
     def Evolve(self):
         self.Evaluate(self.parents)
-        for currentGeneration in range(numberOfGenerations):
+        for currentGeneration in range(self.constants.numberOfGenerations):
             self.Evolve_For_One_Generation(currentGeneration)
             self.Save_Best_Fitness_For_Gen()
             self.Print()
@@ -55,7 +54,7 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
 
 
     def Select(self):
-        for i in range (populationSize):
+        for i in range (self.constants.populationSize):
             if self.children[i].fitness > self.parents[i].fitness:
                 self.parents[i] = self.children[i]        
 

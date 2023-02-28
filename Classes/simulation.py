@@ -3,15 +3,16 @@ import time
 import pybullet as p
 import pybullet_data
         
-import constants as c 
-from world import WORLD
-from robot import ROBOT
+from Classes.constants import Constants
+from Classes.world import WORLD
+from Classes.robot import ROBOT
 
 
 
 
 class SIMULATION:
     def __init__(self,directOrGUI,solutionID,links,joints,delete = True) -> None:
+        self.constants = Constants()
         self.physicsClient = None 
         self.directOrGUI = directOrGUI
         self.solutionID = solutionID
@@ -32,13 +33,13 @@ class SIMULATION:
         # print("Simulation set up succesfully")
 
     def Run(self):
-        for i in range(c.num_steps):
+        for i in range(self.constants.num_steps):
             p.stepSimulation()
             self.robot.Sense(i)
             self.robot.Think()
             self.robot.Act(i)
             if self.directOrGUI == "GUI":
-                time.sleep(c.sleep_time)
+                time.sleep(self.constants.sleep_time)
 
     def Get_Fitness(self):
         self.robot.Get_Fitness()

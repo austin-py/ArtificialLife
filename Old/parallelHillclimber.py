@@ -2,24 +2,26 @@ import copy
 import os 
 import math 
 
-from solution import SOLUTION
-from constants import numberOfGenerations, populationSize
+from Old.solution import SOLUTION
+from Classes.constants import Constants
+
 
 class PARALLEL_HILL_CLIMBER():
     def __init__(self) -> None:
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
+        self.constants = Constants()
         self.parents = {}
         self.children = {}
         self.nextAvailableID = 0
-        for i in range(populationSize):
+        for i in range(self.constants.populationSize):
             self.parents[i] = SOLUTION(self.nextAvailableID)
             self.nextAvailableID +=1
         self.child = None
 
     def Evolve(self):
         self.Evaluate(self.parents)
-        for currentGeneration in range(numberOfGenerations):
+        for currentGeneration in range(self.constants.numberOfGenerations):
             self.Evolve_For_One_Generation()
             self.Print()
     
@@ -45,7 +47,7 @@ class PARALLEL_HILL_CLIMBER():
 
 
     def Select(self):
-        for i in range (populationSize):
+        for i in range (self.constants.populationSize):
             if self.children[i].fitness < self.parents[i].fitness:
                 self.parents[i] = self.children[i]
 
