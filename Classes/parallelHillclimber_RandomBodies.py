@@ -5,7 +5,7 @@ from Classes.random_solution import RANDOM_SOLUTION
 from Classes.constants import Constants
 
 class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
-    def __init__(self) -> None:
+    def __init__(self,seed = None) -> None:
         os.system("rm brain*.nndf")
         os.system("rm fitness*.txt")
         os.system("rm body*.urdf")
@@ -14,7 +14,8 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         self.children = {}
         self.nextAvailableID = 0
         for i in range(self.constants.populationSize):
-            self.parents[i] = RANDOM_SOLUTION(self.nextAvailableID)
+            individual_seed = seed + ( i * self.constants.populationSize)
+            self.parents[i] = RANDOM_SOLUTION(self.nextAvailableID,seed=individual_seed)
             self.nextAvailableID +=1
         self.child = None
         self.fitness_vals = []

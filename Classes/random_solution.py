@@ -7,6 +7,8 @@ import copy
 import pyrosim.pyrosim as pyrosim
 from helpers.simulate import simulate
 
+
+
 length = 1
 width = 1
 height = 1
@@ -16,7 +18,11 @@ y = 0
 z = 0.5
 
 class RANDOM_SOLUTION():
-    def __init__(self, nextAvailableID) -> None:
+    def __init__(self, nextAvailableID,seed = None) -> None:
+        if seed !=  None:
+            numpy.random.seed(seed)
+            random.seed(seed)
+
         self.myID = nextAvailableID
         # self.randomSeed = seed
         # random.seed(self.randomSeed)

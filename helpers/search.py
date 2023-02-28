@@ -18,8 +18,8 @@ def random_unevolved():
     r = RANDOM_SOLUTION(0)
     r.Evaluate("GUI")
 
-def random_evolved(show=True):
-    phc = PARALLEL_HILL_CLIMBER_RANDOM_BODY()
+def random_evolved(show=True,seed = None):
+    phc = PARALLEL_HILL_CLIMBER_RANDOM_BODY(seed = seed)
     phc.Evolve()
     if show:
         phc.Show_Best()
