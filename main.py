@@ -1,19 +1,26 @@
 import json 
 
 import helpers.search as search
+from helpers.simulate import simulate
 
-file_name = 'seed_test1.json'
+file_name = 'TEMP.json'
 
 def main():
     vals = {}
-    for seed in range(1):
-        fitness_vals = search.random_evolved(show=True,seed = seed)
+    for seed in range(5):
+        fitness_vals = search.random_evolved(show=False,seed = seed)
         vals[seed] = fitness_vals
     with open('Data & Diagrams/{}'.format(file_name),'w') as f:
         json.dump(vals,f)
 
-    # simulate('GUI','679',delete=False)
+    # links = ['Torso','Block0','Block1','Block2','Block3','Block4','Block5','Block6','Block7','Block8','Block9','Block10','Block11','Block12']
+    # joints = ['Torso_Block0','Block0_Block1','Block1_Block2','Block2_Block3','Block3_Block4','Block4_Block5','Block5_Block6','Block6_Block7','Block7_Block8','Block8_Block9','Block9_Block10','Block10_Block11','Block611_Block12']
+    # simulate('GUI','2223',links, joints, delete=False)
 if __name__ == "__main__":
     main()
 
     
+
+    # Replace low select seed 1 kinda sick AF 
+
+    # 1 2 3 4 

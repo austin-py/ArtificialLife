@@ -71,7 +71,6 @@ class RANDOM_SOLUTION():
     #    pyrosim.Send_Cube(name="Box7", pos=[-11,11,.5] , size=[length ,height ,width ])
     #    pyrosim.Send_Cube(name="Box8", pos=[-11,10,.5] , size=[length ,height ,width ])
     #    pyrosim.Send_Cube(name="Box9", pos=[-11,9,.5] , size=[length ,height ,width ])
-
        pyrosim.End()
 
     def Create_Body(self):

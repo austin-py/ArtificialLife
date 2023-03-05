@@ -23,19 +23,17 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
     def Evolve(self):
         self.Evaluate(self.parents)
         for currentGeneration in range(self.constants.numberOfGenerations):
-            self.Evolve_For_One_Generation(currentGeneration)
+            self.Evolve_For_One_Generation()
             self.Save_Best_Fitness_For_Gen()
             self.Print()
     
-    def Evolve_For_One_Generation(self,gen):
+    def Evolve_For_One_Generation(self):
         self.Spawn()
         self.Mutate()
-        # if gen == 0 or gen == numberOfGenerations - 1:
-            # self.Evaluate(self.children,direct = "GUI")
-        # else:
-            # self.Evaluate(self.children)
         self.Evaluate(self.children)
         self.Select()
+        # self.Select_Best_vs_All()
+        # self.Select_Replace_Low_Fitness()
 
     def Spawn(self):
         for i in self.parents.keys():
@@ -57,17 +55,38 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
     def Select(self):
         for i in range (self.constants.populationSize):
             if self.children[i].fitness > self.parents[i].fitness:
-                self.parents[i] = self.children[i]        
+                self.parents[i] = self.children[i]      
 
-    def Show_Best(self):
+    def Select_Replace_Low_Fitness(self):
+        cutoff = 2
+        best_child = self.Find_Best(self.children)
+        for i in range(self.constants.populationSize):
+            if self.children[i].fitness > self.parents[i].fitness:
+                self.parents[i] = self.children[i]
+            elif self.parents[i].fitness <  cutoff:
+                self.parents[i] = best_child   
+
+    def Select_Best_vs_All(self):
+        best_parent = self.Find_Best(self.parents)
+        best_child = self.Find_Best(self.children)
+        if best_child.fitness > best_parent.fitness:
+            for i in range (self.constants.populationSize):
+                self.parents[i] = best_child
+
+
+    def Find_Best(self,search_dict):
         min_parent =  None
         min_parent_fitness = 0
-        for i in self.parents.items():
+        for i in search_dict.items():
             if i[1].fitness > min_parent_fitness:
                 min_parent = i[1]
                 min_parent_fitness = min_parent.fitness
+        return min_parent
 
-        print("Our best fitness value was: ", min_parent_fitness)
+    def Show_Best(self):
+        min_parent =  self.Find_Best(self.parents)
+
+        print("Our best fitness value was: ", min_parent.fitness)
         min_parent.Create_Brain()
         min_parent.Recreate_Body()
         min_parent.Start_Simulation("GUI")
@@ -92,11 +111,6 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
             print('\n',self.parents[i].fitness,self.children[i].fitness,'\n')
 
     def Save_Best_Fitness_For_Gen(self):
-        min_parent =  None
-        min_parent_fitness = 0
-        for i in self.parents.items():
-            if i[1].fitness > min_parent_fitness:
-                min_parent = i[1]
-                min_parent_fitness = min_parent.fitness
-        self.fitness_vals.append(min_parent_fitness)
+        min_parent =  self.Find_Best(self.parents)
+        self.fitness_vals.append(min_parent.fitness)
 
