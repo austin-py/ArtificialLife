@@ -31,9 +31,10 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        self.Select()
+        # self.Select()
         # self.Select_Best_vs_All()
         # self.Select_Replace_Low_Fitness()
+        self.Select_Compare_Pools_of_5()
 
     def Spawn(self):
         for i in self.parents.keys():
@@ -73,6 +74,18 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
             for i in range (self.constants.populationSize):
                 self.parents[i] = best_child
 
+    def Select_Compare_Pools_of_5(self):
+        for i in range(int(self.constants.populationSize/5)):
+            parents = list(self.parents.items())
+            children = list(self.children.items())
+            these_parents = dict(parents[i*5:(i*5)+5])
+            these_children = dict(children[i*5:(i*5)+5])
+            best_parent = self.Find_Best(these_parents)
+            best_child = self.Find_Best(these_children)
+            if best_child.fitness > best_parent.fitness:
+                for i in range (i*5,(i*5) + 5):
+                    self.parents[i] = best_child
+            
 
     def Find_Best(self,search_dict):
         min_parent =  None

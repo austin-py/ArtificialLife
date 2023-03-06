@@ -3,7 +3,7 @@ import json
 import helpers.search as search
 from helpers.simulate import simulate
 
-file_name = 'TEMP.json'
+file_name = 'AllvGroupsof5SelectWide.json'
 
 def main():
     vals = {}
@@ -20,7 +20,11 @@ if __name__ == "__main__":
     main()
 
     
+#Set up for last wide run rn 
 
-    # Replace low select seed 1 kinda sick AF 
 
-    # 1 2 3 4 
+#After that want to drop to 10 creatures and 10 gens and run 30ish sims to try and get some numbers for stats 
+    # - NormalSelectStats.json
+    # - ReplaceLowSelectStats.json
+    # - SelectBestVAllStats.json
+    # - AllvGroupsof5SelectStats.json
