@@ -3,14 +3,14 @@ import json
 import helpers.search as search
 from helpers.simulate import simulate
 
-file_name = 'AllvGroupsof5SelectWide.json'
+file_name = 'AllvGroupsof5SelectStatsFull.json'
 
 def main():
     vals = {}
-    for seed in range(5):
+    for seed in range(300):
         fitness_vals = search.random_evolved(show=False,seed = seed)
         vals[seed] = fitness_vals
-    with open('Data & Diagrams/{}'.format(file_name),'w') as f:
+    with open('Data/{}'.format(file_name),'w') as f:
         json.dump(vals,f)
 
     # links = ['Torso','Block0','Block1','Block2','Block3','Block4','Block5','Block6','Block7','Block8','Block9','Block10','Block11','Block12']
@@ -18,9 +18,6 @@ def main():
     # simulate('GUI','2223',links, joints, delete=False)
 if __name__ == "__main__":
     main()
-
-    
-#Set up for last wide run rn 
 
 
 #After that want to drop to 10 creatures and 10 gens and run 30ish sims to try and get some numbers for stats 
