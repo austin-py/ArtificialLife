@@ -54,6 +54,8 @@ Creature Mutation Diagram
 ![Creature Mutation](https://github.com/austin-py/ArtificialLife/blob/1287086658b21dccd191fafcf91148e8217c4194/creature_mutation.jpg)
 
 Experimentation:
+=======================
+For the purpose of experimentation, 420,000 simulations were run. The full writeup of the results and more details can be found [Here](https://github.com/austin-py/ArtificialLife/blob/c5ee419a8663788774b55b64bd3b11aeb4c128af/Final%20Writeup%20.pdf)
 
 
 TO RUN: 
