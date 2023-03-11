@@ -74,11 +74,11 @@ Viewing can be slowed down by adjusting the sleep time in constants.
 
 Documentation:
 ==============
-To view a 10 teaser gif: https://youtu.be/STcML44qikA
-To view a summary video of the work:  https://youtu.be/Pf-npC7I8WM 
-Bloopers: https://youtu.be/e-sFWja-vKY 
-To view one creature in both an evolved and random state: https://youtu.be/_wVzwvb8V4w 
-To view an evolutionary run of one creature (every 50 generations is shown): https://youtu.be/Oq9HjgO-8LM 
+To view a 10 teaser gif: https://youtu.be/STcML44qikA  <br>
+To view a summary video of the work:  https://youtu.be/Pf-npC7I8WM <br>
+Bloopers: https://youtu.be/e-sFWja-vKY <br>
+To view one creature in both an evolved and random state: https://youtu.be/_wVzwvb8V4w <br>
+To view an evolutionary run of one creature (every 50 generations is shown): https://youtu.be/Oq9HjgO-8LM <br>
 
 
 
@@ -94,7 +94,5 @@ Ideas and inspiration from Comp-Sci 396 Artificial Life at Northwestern Universi
 
 Older Graphs of some fitness plots:
 ==================================
-![Five Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/
-39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph1.png)
-![Many Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/
-39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph2.png)
+![Five Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph1.png)
+![Many Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph2.png)
