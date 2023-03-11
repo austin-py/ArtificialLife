@@ -27,7 +27,7 @@ Methods:
 	This adds up to 105,000 sims per selection method, or 420,000 sims total. 
 	
 	
-	The results were all compared with t-tests for significance. The Full and Wide runs did not have enough results to compare and find significance (only 5, since it just compared the best values for each seed), which is why the stat run was conducted.  Both the wide and stat run were added after the fact to answer questions about the additional hypothesis and fill in knowledge gaps. 
+The results were all compared with t-tests for significance. The Full and Wide runs did not have enough results to compare and find significance (only 5, since it just compared the best values for each seed), which is why the stat run was conducted.  Both the wide and stat run were added after the fact to answer questions about the additional hypothesis and fill in knowledge gaps. 
 
 
 Results:
