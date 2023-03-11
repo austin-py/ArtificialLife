@@ -53,15 +53,14 @@ Creature Mutation Diagram
 =========================
 ![Creature Mutation](https://github.com/austin-py/ArtificialLife/blob/1287086658b21dccd191fafcf91148e8217c4194/creature_mutation.jpg)
 
-Graphs:
-=======
-![Five Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph1.png)
-![Many Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph2.png)
+Experimentation:
 
 
 TO RUN: 
 ===================
-Simply run "python3 main.py" and it will simulate 10 hill climbers which each have 10 members of population for 100 generations. Only the best from each hill climber run is shown visually, and only when show=True in main.py.  Viewing can be slowed down by adjusting the sleep time in constants. 
+Simply run "python3 main.py" and it will simulate 5 hill climbers which each have 10 members of population for 10 generations. Only the best from each hill climber run is shown visually, and only when show=True in main.py. The fitness values of the creatures will be saved in the whatever file the variable "FILE NAME" points to within the Data folder.
+
+Viewing can be slowed down by adjusting the sleep time in constants. 
 
 
 Documentation:
@@ -80,3 +79,12 @@ Note: This work builds extensively off of the work of Karl Sims, r/ludobots, and
 Additionally, some ideas were crowdsourced from the class campuswire page. Specifically I got ideas from the class page about how to re-generate bodies. 
 
 Ideas and inspiration from Comp-Sci 396 Artificial Life at Northwestern University with Sam Kriegman teaching. 
+
+
+
+Older Graphs of some fitness plots:
+==================================
+![Five Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/
+39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph1.png)
+![Many Fitness Plots](https://github.com/austin-py/ArtificialLife/blob/
+39d9d5bc3599a9c651ec6e205fc7436c8247c498/Fitness_Graph2.png)

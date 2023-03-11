@@ -31,10 +31,10 @@ class PARALLEL_HILL_CLIMBER_RANDOM_BODY():
         self.Spawn()
         self.Mutate()
         self.Evaluate(self.children)
-        # self.Select()
+        self.Select()
         # self.Select_Best_vs_All()
         # self.Select_Replace_Low_Fitness()
-        self.Select_Compare_Pools_of_5()
+        # self.Select_Compare_Pools_of_5()
 
     def Spawn(self):
         for i in self.parents.keys():

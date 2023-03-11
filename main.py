@@ -3,12 +3,12 @@ import json
 import helpers.search as search
 from helpers.simulate import simulate
 
-file_name = 'AllvGroupsof5SelectStatsFull.json'
+file_name = 'TEMP.json'
 
 def main():
     vals = {}
-    for seed in range(300):
-        fitness_vals = search.random_evolved(show=False,seed = seed)
+    for seed in range(5):
+        fitness_vals = search.random_evolved(show=True,seed = seed)
         vals[seed] = fitness_vals
     with open('Data/{}'.format(file_name),'w') as f:
         json.dump(vals,f)
