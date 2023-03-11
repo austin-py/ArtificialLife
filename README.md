@@ -53,6 +53,11 @@ Creature Mutation Diagram
 =========================
 ![Creature Mutation](https://github.com/austin-py/ArtificialLife/blob/1287086658b21dccd191fafcf91148e8217c4194/creature_mutation.jpg)
 
+
+Selection:
+==========
+Selection algorithm was varried, as detailed in the experimental results below. However the fitness measure remained the same. Namely how far the creature could travel from the origin in any direction. 
+
 Experimentation:
 =======================
 For the purpose of experimentation, 420,000 simulations were run. The full writeup of the results and more details can be found [Here](https://github.com/austin-py/ArtificialLife/blob/final-project/Final_Writeup.md)
@@ -62,13 +67,16 @@ TO RUN:
 ===================
 Simply run "python3 main.py" and it will simulate 5 hill climbers which each have 10 members of population for 10 generations. Only the best from each hill climber run is shown visually, and only when show=True in main.py. The fitness values of the creatures will be saved in the whatever file the variable "FILE NAME" points to within the Data folder.
 
+You are also able to comment out lines 9-14, and uncomment lines 16-18 to simulate one robot that was the result of evolution.
+
 Viewing can be slowed down by adjusting the sleep time in constants. 
 
 
 Documentation:
 ==============
-To view a 10 second snipit of the work: https://youtu.be/STcML44qikA
-To view a longer version of the same video:  https://youtu.be/u8_N9vxeiaU
+To view a 10 teaser gif: https://youtu.be/STcML44qikA
+To view a summary video of the work:  https://youtu.be/Pf-npC7I8WM 
+Bloopers: https://youtu.be/e-sFWja-vKY 
 To view one creature in both an evolved and random state: https://youtu.be/_wVzwvb8V4w 
 To view an evolutionary run of one creature (every 50 generations is shown): https://youtu.be/Oq9HjgO-8LM 
 
