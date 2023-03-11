@@ -75,8 +75,8 @@ Viewing can be slowed down by adjusting the sleep time in constants.
 Documentation:
 ==============
 To view a 10 teaser gif: https://youtu.be/STcML44qikA  <br>
-To view a summary video of the work:  https://youtu.be/Pf-npC7I8WM <br>
-Bloopers: https://youtu.be/e-sFWja-vKY <br>
+To view a summary video of the work:  https://youtu.be/rgEhXUmA4ew <br>
+Bloopers: https://youtu.be/1omTaGXlKPc <br>
 To view one creature in both an evolved and random state: https://youtu.be/_wVzwvb8V4w <br>
 To view an evolutionary run of one creature (every 50 generations is shown): https://youtu.be/Oq9HjgO-8LM <br>
 
